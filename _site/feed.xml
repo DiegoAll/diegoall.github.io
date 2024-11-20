@@ -1,4 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-10-30T23:07:15-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">DiegoAll</title><subtitle>An amazing website.</subtitle><author><name>Diego All</name><email>diegoall@somewhere.com</email></author><entry><title type="html">Falco runtime security</title><link href="http://localhost:4000/cyber/kubernetes/falco-runtime-security/" rel="alternate" type="text/html" title="Falco runtime security" /><published>2024-09-02T00:00:00-05:00</published><updated>2024-09-02T00:00:00-05:00</updated><id>http://localhost:4000/cyber/kubernetes/falco-runtime-security</id><content type="html" xml:base="http://localhost:4000/cyber/kubernetes/falco-runtime-security/"><![CDATA[<p><!-- ![](/assets/images/falco-test/falco_runtime_security.png) -->
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-11-20T17:38:09-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">DiegoAll</title><subtitle>An amazing website.</subtitle><author><name>Diego All</name><email>diegoall@somewhere.com</email></author><entry><title type="html">Malicious behaviors using binfmt_misc</title><link href="http://localhost:4000/cyber/linux/malicious-behaviors-binfmt-misc/" rel="alternate" type="text/html" title="Malicious behaviors using binfmt_misc" /><published>2024-11-20T00:00:00-05:00</published><updated>2024-11-20T00:00:00-05:00</updated><id>http://localhost:4000/cyber/linux/malicious-behaviors-binfmt-misc</id><content type="html" xml:base="http://localhost:4000/cyber/linux/malicious-behaviors-binfmt-misc/"><![CDATA[<p><!-- ![](/assets/images/falco-test/falco_runtime_security.png) -->
+<img src="/assets/images/falco-test/falco_runtime_security.png" alt="Descripción de la imagen" width="500" /></p>
+
+<p>Intro</p>
+
+<h2 id="miscellaneous-binary-formats">Miscellaneous Binary Formats</h2>
+
+<p>binfmt_misc</p>
+
+<p>toffan</p>
+
+<h2 id="poc">PoC</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Nmap scan report for 10.129.148.141
+Host is up (0.018s latency).
+
+
+Ejemplo custom rule
+</code></pre></div></div>
+
+<ul>
+  <li><a href="https://github.com/NSAKEY/nsa-rules/blob/master/_NSAKEY.v2.dive.rule">https://github.com/NSAKEY/nsa-rules/blob/master/_NSAKEY.v2.dive.rule</a></li>
+  <li><a href="https://github.com/NotSoSecure/password_cracking_rules/blob/master/OneRuleToRuleThemAll.rule">https://github.com/NotSoSecure/password_cracking_rules/blob/master/OneRuleToRuleThemAll.rule</a></li>
+</ul>
+
+<p><img src="/assets/images/htb-writeup-delivery/root.png" alt="" /></p>]]></content><author><name>Diego All</name><email>diegoall@somewhere.com</email></author><category term="cyber" /><category term="linux" /><category term="privilege_escalation" /><summary type="html"><![CDATA[Behaviors using binfmt_misc]]></summary></entry><entry><title type="html">Falco runtime security</title><link href="http://localhost:4000/cyber/kubernetes/falco-runtime-security/" rel="alternate" type="text/html" title="Falco runtime security" /><published>2024-09-02T00:00:00-05:00</published><updated>2024-09-02T00:00:00-05:00</updated><id>http://localhost:4000/cyber/kubernetes/falco-runtime-security</id><content type="html" xml:base="http://localhost:4000/cyber/kubernetes/falco-runtime-security/"><![CDATA[<p><!-- ![](/assets/images/falco-test/falco_runtime_security.png) -->
 <img src="/assets/images/falco-test/falco_runtime_security.png" alt="Descripción de la imagen" width="500" /></p>
 
 <p>Intro</p>
