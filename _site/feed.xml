@@ -1,4 +1,56 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-11-20T17:38:09-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">DiegoAll</title><subtitle>An amazing website.</subtitle><author><name>Diego All</name><email>diegoall@somewhere.com</email></author><entry><title type="html">Malicious behaviors using binfmt_misc</title><link href="http://localhost:4000/cyber/linux/malicious-behaviors-binfmt-misc/" rel="alternate" type="text/html" title="Malicious behaviors using binfmt_misc" /><published>2024-11-20T00:00:00-05:00</published><updated>2024-11-20T00:00:00-05:00</updated><id>http://localhost:4000/cyber/linux/malicious-behaviors-binfmt-misc</id><content type="html" xml:base="http://localhost:4000/cyber/linux/malicious-behaviors-binfmt-misc/"><![CDATA[<p><!-- ![](/assets/images/falco-test/falco_runtime_security.png) -->
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-02-18T22:01:56-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">DiegoAll</title><subtitle>An amazing website.</subtitle><author><name>Diego All</name><email>diegoall@somewhere.com</email></author><entry><title type="html">Falco Custom Rules</title><link href="http://localhost:4000/cyber/kubernetes/falco-custom-rules/" rel="alternate" type="text/html" title="Falco Custom Rules" /><published>2025-02-18T00:00:00-05:00</published><updated>2025-02-18T00:00:00-05:00</updated><id>http://localhost:4000/cyber/kubernetes/falco-custom-rules</id><content type="html" xml:base="http://localhost:4000/cyber/kubernetes/falco-custom-rules/"><![CDATA[<p><!-- ![](/assets/images/falco-test/falco_runtime_security.png) -->
+<img src="/assets/images/falco-test/falco_runtime_security.png" alt="Descripción de la imagen" width="500" /></p>
+
+<p>Falco custom rules</p>
+
+<h2 id="miscellaneous-binary-formats">Miscellaneous Binary Formats</h2>
+
+<p>alcohol</p>
+
+<p>alcohol</p>
+
+<p>alcohol</p>
+
+<h2 id="poc">PoC</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Nmap scan report for 10.129.148.141
+Host is up (0.018s latency).
+
+
+Ejemplo custom rule
+</code></pre></div></div>
+
+<ul>
+  <li><a href="https://github.com/NSAKEY/nsa-rules/blob/master/_NSAKEY.v2.dive.rule">https://github.com/NSAKEY/nsa-rules/blob/master/_NSAKEY.v2.dive.rule</a></li>
+  <li><a href="https://github.com/NotSoSecure/password_cracking_rules/blob/master/OneRuleToRuleThemAll.rule">https://github.com/NotSoSecure/password_cracking_rules/blob/master/OneRuleToRuleThemAll.rule</a></li>
+</ul>
+
+<p><img src="/assets/images/htb-writeup-delivery/root.png" alt="" /></p>]]></content><author><name>Diego All</name><email>diegoall@somewhere.com</email></author><category term="cyber" /><category term="kubernetes" /><category term="falco" /><category term="runtime security" /><category term="syscall" /><category term="threat detection" /><category term="rules" /><summary type="html"><![CDATA[Falco Custom Rules]]></summary></entry><entry><title type="html">Container Escapes</title><link href="http://localhost:4000/cyber/kubernetes/container-escapes/" rel="alternate" type="text/html" title="Container Escapes" /><published>2025-02-15T00:00:00-05:00</published><updated>2025-02-15T00:00:00-05:00</updated><id>http://localhost:4000/cyber/kubernetes/container-escapes</id><content type="html" xml:base="http://localhost:4000/cyber/kubernetes/container-escapes/"><![CDATA[<p><!-- ![](/assets/images/falco-test/falco_runtime_security.png) -->
+<img src="/assets/images/falco-test/falco_runtime_security.png" alt="Descripción de la imagen" width="500" /></p>
+
+<p>Falco custom rules</p>
+
+<h2 id="miscellaneous-binary-formats">Miscellaneous Binary Formats</h2>
+
+<p>binfmt_misc</p>
+
+<p>toffan</p>
+
+<h2 id="poc">PoC</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Nmap scan report for 10.129.148.141
+Host is up (0.018s latency).
+
+
+Ejemplo custom rule
+</code></pre></div></div>
+
+<ul>
+  <li><a href="https://github.com/NSAKEY/nsa-rules/blob/master/_NSAKEY.v2.dive.rule">https://github.com/NSAKEY/nsa-rules/blob/master/_NSAKEY.v2.dive.rule</a></li>
+  <li><a href="https://github.com/NotSoSecure/password_cracking_rules/blob/master/OneRuleToRuleThemAll.rule">https://github.com/NotSoSecure/password_cracking_rules/blob/master/OneRuleToRuleThemAll.rule</a></li>
+</ul>
+
+<p><img src="/assets/images/htb-writeup-delivery/root.png" alt="" /></p>]]></content><author><name>Diego All</name><email>diegoall@somewhere.com</email></author><category term="cyber" /><category term="kubernetes" /><category term="falco" /><category term="runtime security" /><category term="syscall" /><category term="threat detection" /><category term="rules" /><summary type="html"><![CDATA[Container Escapes]]></summary></entry><entry><title type="html">Golang secure scaffolding</title><link href="http://localhost:4000/programming/golang-secure-scaffolding/" rel="alternate" type="text/html" title="Golang secure scaffolding" /><published>2025-02-01T00:00:00-05:00</published><updated>2025-02-01T00:00:00-05:00</updated><id>http://localhost:4000/programming/golang-secure-scaffolding</id><content type="html" xml:base="http://localhost:4000/programming/golang-secure-scaffolding/"><![CDATA[<p><!-- ![](/assets/images/falco-test/falco_runtime_security.png) -->
 <img src="/assets/images/falco-test/falco_runtime_security.png" alt="Descripción de la imagen" width="500" /></p>
 
 <p>Intro</p>
@@ -6,6 +58,35 @@
 <h2 id="miscellaneous-binary-formats">Miscellaneous Binary Formats</h2>
 
 <p>binfmt_misc</p>
+
+<p>toffan</p>
+
+<h2 id="poc">PoC</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Nmap scan report for 10.129.148.141
+Host is up (0.018s latency).
+
+
+Ejemplo custom rule
+</code></pre></div></div>
+
+<ul>
+  <li><a href="https://github.com/NSAKEY/nsa-rules/blob/master/_NSAKEY.v2.dive.rule">https://github.com/NSAKEY/nsa-rules/blob/master/_NSAKEY.v2.dive.rule</a></li>
+  <li><a href="https://github.com/NotSoSecure/password_cracking_rules/blob/master/OneRuleToRuleThemAll.rule">https://github.com/NotSoSecure/password_cracking_rules/blob/master/OneRuleToRuleThemAll.rule</a></li>
+</ul>
+
+<p><img src="/assets/images/htb-writeup-delivery/root.png" alt="" /></p>]]></content><author><name>Diego All</name><email>diegoall@somewhere.com</email></author><category term="programming" /><category term="golang" /><summary type="html"><![CDATA[Golang secure scaffolding]]></summary></entry><entry><title type="html">Malicious behaviors using binfmt_misc</title><link href="http://localhost:4000/cyber/linux/malicious-behaviors-binfmt-misc/" rel="alternate" type="text/html" title="Malicious behaviors using binfmt_misc" /><published>2024-11-20T00:00:00-05:00</published><updated>2024-11-20T00:00:00-05:00</updated><id>http://localhost:4000/cyber/linux/malicious-behaviors-binfmt-misc</id><content type="html" xml:base="http://localhost:4000/cyber/linux/malicious-behaviors-binfmt-misc/"><![CDATA[<p><!-- ![](/assets/images/falco-test/falco_runtime_security.png) -->
+<img src="/assets/images/falco-test/falco_runtime_security.png" alt="Descripción de la imagen" width="500" /></p>
+
+<p>Intro</p>
+
+<h2 id="miscellaneous-binary-formats">Miscellaneous Binary Formats</h2>
+
+<p>binfmt_misc</p>
+
+<p>trin</p>
+
+<p>trin</p>
 
 <p>toffan</p>
 

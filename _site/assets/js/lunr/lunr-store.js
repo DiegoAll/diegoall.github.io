@@ -30,8 +30,26 @@ var store = [{
         "teaser": "/assets/images/htb-writeup-delivery/delivery_logo.png"
       },{
         "title": "Malicious behaviors using binfmt_misc",
-        "excerpt":"    Intro   Miscellaneous Binary Formats   binfmt_misc   toffan   PoC   Nmap scan report for 10.129.148.141 Host is up (0.018s latency).   Ejemplo custom rule      https://github.com/NSAKEY/nsa-rules/blob/master/_NSAKEY.v2.dive.rule   https://github.com/NotSoSecure/password_cracking_rules/blob/master/OneRuleToRuleThemAll.rule     ","categories": ["cyber","linux"],
+        "excerpt":"    Intro   Miscellaneous Binary Formats   binfmt_misc   trin   trin   toffan   PoC   Nmap scan report for 10.129.148.141 Host is up (0.018s latency).   Ejemplo custom rule      https://github.com/NSAKEY/nsa-rules/blob/master/_NSAKEY.v2.dive.rule   https://github.com/NotSoSecure/password_cracking_rules/blob/master/OneRuleToRuleThemAll.rule     ","categories": ["cyber","linux"],
         "tags": ["privilege_escalation"],
         "url": "/cyber/linux/malicious-behaviors-binfmt-misc/",
+        "teaser": "/assets/images/htb-writeup-delivery/delivery_logo.png"
+      },{
+        "title": "Golang secure scaffolding",
+        "excerpt":"    Intro   Miscellaneous Binary Formats   binfmt_misc   toffan   PoC   Nmap scan report for 10.129.148.141 Host is up (0.018s latency).   Ejemplo custom rule      https://github.com/NSAKEY/nsa-rules/blob/master/_NSAKEY.v2.dive.rule   https://github.com/NotSoSecure/password_cracking_rules/blob/master/OneRuleToRuleThemAll.rule     ","categories": ["programming"],
+        "tags": ["golang"],
+        "url": "/programming/golang-secure-scaffolding/",
+        "teaser": "/assets/images/htb-writeup-delivery/delivery_logo.png"
+      },{
+        "title": "Container Escapes",
+        "excerpt":"    Falco custom rules   Miscellaneous Binary Formats   binfmt_misc   toffan   PoC   Nmap scan report for 10.129.148.141 Host is up (0.018s latency).   Ejemplo custom rule      https://github.com/NSAKEY/nsa-rules/blob/master/_NSAKEY.v2.dive.rule   https://github.com/NotSoSecure/password_cracking_rules/blob/master/OneRuleToRuleThemAll.rule     ","categories": ["cyber","kubernetes"],
+        "tags": ["falco","runtime security","syscall","threat detection","rules"],
+        "url": "/cyber/kubernetes/container-escapes/",
+        "teaser": "/assets/images/htb-writeup-delivery/delivery_logo.png"
+      },{
+        "title": "Falco Custom Rules",
+        "excerpt":"    Falco custom rules   Miscellaneous Binary Formats   alcohol   alcohol   alcohol   PoC   Nmap scan report for 10.129.148.141 Host is up (0.018s latency).   Ejemplo custom rule      https://github.com/NSAKEY/nsa-rules/blob/master/_NSAKEY.v2.dive.rule   https://github.com/NotSoSecure/password_cracking_rules/blob/master/OneRuleToRuleThemAll.rule     ","categories": ["cyber","kubernetes"],
+        "tags": ["falco","runtime security","syscall","threat detection","rules"],
+        "url": "/cyber/kubernetes/falco-custom-rules/",
         "teaser": "/assets/images/htb-writeup-delivery/delivery_logo.png"
       }]

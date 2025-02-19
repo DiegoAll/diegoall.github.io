@@ -1,8 +1,8 @@
 ---
 layout: single
-title: Malicious behaviors using binfmt_misc
-excerpt: "Behaviors using binfmt_misc"
-date: 2024-11-20
+title: Container Escapes
+excerpt: "Container Escapes"
+date: 2025-02-15
 classes: wide
 header:
   teaser: /assets/images/htb-writeup-delivery/delivery_logo.png
@@ -10,9 +10,13 @@ header:
   icon: /assets/images/hackthebox.webp
 categories:
   - cyber
-  - linux
+  - kubernetes
 tags:  
-  - privilege_escalation
+  - falco
+  - runtime security
+  - syscall
+  - threat detection
+  - rules
 ---
 
   <!-- ![](/assets/images/falco-test/falco_runtime_security.png) -->
@@ -20,15 +24,11 @@ tags:
 
 
 
-Intro
+Falco custom rules
 
 ## Miscellaneous Binary Formats
 
 binfmt_misc
-
-trin
-
-trin
 
 
 toffan

@@ -1,18 +1,17 @@
 ---
 layout: single
-title: Malicious behaviors using binfmt_misc
-excerpt: "Behaviors using binfmt_misc"
-date: 2024-11-20
+title: Golang secure scaffolding
+excerpt: "Golang secure scaffolding"
+date: 2025-02-01
 classes: wide
 header:
   teaser: /assets/images/htb-writeup-delivery/delivery_logo.png
   teaser_home_page: true
   icon: /assets/images/hackthebox.webp
 categories:
-  - cyber
-  - linux
+  - programming
 tags:  
-  - privilege_escalation
+  - golang
 ---
 
   <!-- ![](/assets/images/falco-test/falco_runtime_security.png) -->
@@ -25,10 +24,6 @@ Intro
 ## Miscellaneous Binary Formats
 
 binfmt_misc
-
-trin
-
-trin
 
 
 toffan
