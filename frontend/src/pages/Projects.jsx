@@ -2,6 +2,13 @@ import { useState } from 'react';
 import thePragmaticCover from '../assets/thepragmatic_cybersecurity_notes_cover.jpeg';
 import meliArchitectureCover from '../assets/MELI-Architecture-Anomaly-detection.png';
 import vigenereCover from '../assets/vigenere.jpeg';
+import secureCodingCover from '../assets/SecureCodingTrainingPortal.jpeg';
+import cloudtrailCover from '../assets/cloudtrail-enrichment-api-golang.jpeg';
+import k8sRuntimeSecCover from '../assets/k8s-runtime-sec.jpeg';
+import goVulnerableApiCover from '../assets/go-vulnerable-api.jpeg';
+import cveLooneyTunablesCover from '../assets/CVE-2023-4911_Looney_Tunables_Detection.jpeg';
+import restApiGolangGenCover from '../assets/rest-api-golang-gen.jpeg';
+import restfulRdsCover from '../assets/restful-rds-golang-products.jpeg';
 
 const projects = [
   // ── Desarrollo de Software ──────────────────────────
@@ -11,7 +18,6 @@ const projects = [
     category: 'development',
     description: 'Proyecto y comunidad de ciberseguridad donde se promueven conocimientos de seguridad informática alineados con las tendencias tecnológicas actuales y la industria.',
     stack: ['Golang', 'React', 'Digital Ocean'],
-    // Portada provisional del proyecto (thepragmatic_cybersecurity_notes_cover.jpeg)
     image: thePragmaticCover,
     gradient: 'linear-gradient(135deg, #7f1d1d, #1a1a1a)',
     links: [
@@ -26,6 +32,7 @@ const projects = [
     description: 'Portal desarrollado para entrenar a los equipos de desarrollo de Bold en buenas prácticas de seguridad y diseño seguro de software.',
     stack: ['Golang', 'React', 'AWS'],
     confidential: true,
+    image: secureCodingCover,
     note: 'Proyecto propiedad de Bold. Algunos detalles de implementación permanecen confidenciales.',
     links: [
       { label: 'Demo', url: 'https://www.youtube.com/watch?v=aeQ6cjakCQo', variant: 'primary' },
@@ -39,7 +46,6 @@ const projects = [
     description: 'Sistema de detección de anomalías de seguridad desarrollado y mantenido en Mercado Libre, orientado a observabilidad y respuesta temprana ante comportamientos inusuales en la infraestructura.',
     stack: ['Golang', 'Python', 'AWS WAF', 'AWS Shield'],
     confidential: true,
-    // Diagrama de arquitectura del proyecto (MELI-Architecture-Anomaly-detection.png)
     image: meliArchitectureCover,
     note: 'Proyecto propiedad de Mercado Libre. Código fuente confidencial, no disponible públicamente.',
     links: [
@@ -52,6 +58,7 @@ const projects = [
     category: 'development',
     description: 'Microservicio RESTful para la gestión de datos de un torneo de fútbol. Utiliza recursos de AWS, provisionados y desplegados mediante Terraform.',
     stack: ['Golang', 'AWS RDS', 'Terraform', 'Amazon Cognito'],
+    image: restfulRdsCover,
     links: [
       { label: 'Code', url: 'https://github.com/DiegoAll/restful-rds-golang-products', variant: 'secondary' },
     ],
@@ -62,10 +69,9 @@ const projects = [
     category: 'development',
     description: 'Genera el scaffold de una REST API en Golang segura a partir de la especificación de un modelo de dominio. Integrado con Google Gemini.',
     stack: ['Golang', 'Google Gemini API'],
+    image: restApiGolangGenCover,
     links: [
       { label: 'Code', url: 'https://github.com/DiegoAll/rest-api-golang-gen', variant: 'secondary' },
-      // Cuando despliegues Swagger, agrega aquí:
-      // { label: 'Demo', url: 'https://tu-api.up.railway.app/swagger/index.html', variant: 'primary' },
     ],
   },
 
@@ -76,6 +82,7 @@ const projects = [
     category: 'security',
     description: 'CLI para simular comportamientos maliciosos en clústeres de Kubernetes. Incluye dos escenarios de incidentes de seguridad relacionados con escalación de privilegios y ejecución de malware.',
     stack: ['Golang', 'EKS', 'Python', 'Google Cloud'],
+    image: k8sRuntimeSecCover,
     links: [
       { label: 'Code', url: 'https://github.com/DiegoAll/k8s-runtime-sec', variant: 'secondary' },
     ],
@@ -86,6 +93,7 @@ const projects = [
     category: 'security',
     description: 'REST API deliberadamente vulnerable construida en Go, que demuestra vulnerabilidades comunes de seguridad incluyendo SQL Injection (SQLi) e Insecure Direct Object Reference (IDOR).',
     stack: ['Golang'],
+    image: goVulnerableApiCover,
     links: [
       { label: 'Code', url: 'https://github.com/diego-all/go-vulnerable-api', variant: 'secondary' },
     ],
@@ -96,6 +104,7 @@ const projects = [
     category: 'security',
     description: 'Demo de detección en tiempo real de la vulnerabilidad CVE-2023-4911 (Looney Tunables) utilizando reglas de Falco runtime security.',
     stack: ['Falco', 'Kubernetes', 'Falco Sidekick-UI'],
+    image: cveLooneyTunablesCover,
     links: [
       { label: 'Demo', url: 'https://youtu.be/lPJQxTmpm3Y', variant: 'primary' },
     ],
@@ -106,7 +115,6 @@ const projects = [
     category: 'security',
     description: 'Implementa un criptoanálisis clásico del cifrado Vigenère utilizando la prueba de Kasiski y el análisis de frecuencias.',
     stack: ['Python'],
-    // Portada provisional del proyecto (vigenere.jpeg)
     image: vigenereCover,
     links: [
       { label: 'Code', url: 'https://github.com/DiegoAll/vigenereDecipher', variant: 'secondary' },
@@ -118,10 +126,9 @@ const projects = [
     category: 'security',
     description: 'API REST de monitoreo de seguridad que enriquece con geolocalización de IP los logs de AWS CloudTrail.',
     stack: ['Golang', 'MongoDB', 'AWS CloudTrail'],
+    image: cloudtrailCover,
     links: [
       { label: 'Code', url: 'https://github.com/DiegoAll/cloudtrail-enrichment-api-golang', variant: 'secondary' },
-      // Cuando despliegues Swagger, agrega aquí:
-      // { label: 'Demo', url: 'https://tu-api.up.railway.app/swagger/index.html', variant: 'primary' },
     ],
   },
 ];
@@ -142,7 +149,6 @@ function ProjectCard({ project }) {
         style={!project.image && project.gradient ? { background: project.gradient } : undefined}
       >
         {project.image ? (
-          // Si el proyecto tiene imagen (screenshot/logo), se usa en vez de la inicial
           <img
             src={project.image}
             alt={project.title}
@@ -173,15 +179,12 @@ function ProjectCard({ project }) {
         {project.links?.length > 0 && (
           <div className="project-links">
             {project.links.map((link) => {
-              // Cuando "Code" es el único link de la card, se resalta con acento
-              // en vez del estilo secundario plano, que se pierde sobre fondo blanco
               const isSoloCode = project.links.length === 1 && link.variant !== 'primary';
               const btnClass = link.variant === 'primary'
                 ? 'btn-demo'
                 : isSoloCode
                   ? 'btn-code btn-code-solo'
                   : 'btn-code';
-
               return (
                 <a
                   key={link.label}
