@@ -6,7 +6,7 @@
   --text: #1a1a1a;
   --text-muted: #6b7280;
   --border: #e5e7eb;
-  --accent: #4f46e5;
+  --accent: #b91c1c;
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
@@ -16,7 +16,7 @@
   --text: #f4f4f5;
   --text-muted: #a1a1aa;
   --border: #27272a;
-  --accent: #818cf8;
+  --accent: #f87171;
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
@@ -336,6 +336,15 @@ a {
   color: rgba(255, 255, 255, 0.85);
 }
 
+/* Screenshot/logo del proyecto cuando existe, en vez de la inicial+degradado */
+.project-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: var(--bg-alt);
+  padding: 14px;
+}
+
 .project-type-badge {
   position: absolute;
   top: 12px;
@@ -374,14 +383,16 @@ a {
   gap: 7px;
 }
 
+/* Badges resaltados con color de acento para no perderse frente a la descripción */
 .stack-chip {
-  padding: 4px 11px;
+  padding: 5px 12px;
   border-radius: 6px;
-  background: var(--bg-alt);
-  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg-alt));
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
   font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.02em;
 }
 
 .project-actions {
@@ -433,6 +444,18 @@ a {
 
 .btn-code:hover {
   background-color: var(--bg-alt);
+}
+
+/* Cuando "Code" es el único botón disponible (no hay Demo), se resalta con
+   el color de acento para que no se pierda sobre el fondo blanco/oscuro */
+.btn-code-solo {
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg));
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+.btn-code-solo:hover {
+  background: color-mix(in srgb, var(--accent) 20%, var(--bg));
 }
 
 /* ── About ──────────────────────────────────────────── */
@@ -504,13 +527,15 @@ a {
   gap: 8px;
 }
 
+/* Mismo tratamiento que .stack-chip, para consistencia visual en todo el sitio */
 .skill-chip {
   padding: 5px 12px;
   border-radius: 6px;
-  background: var(--bg-alt);
-  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg-alt));
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
   font-size: 0.8rem;
-  color: var(--text);
+  font-weight: 700;
+  color: var(--accent);
 }
 
 .timeline {
