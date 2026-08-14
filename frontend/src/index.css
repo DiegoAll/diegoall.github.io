@@ -234,7 +234,7 @@ a {
 /* ── Projects ───────────────────────────────────────── */
 .projects-page {
   padding: 60px 32px;
-  max-width: 1100px;
+  max-width: 1320px;
   margin: 0 auto;
 }
 
@@ -246,25 +246,83 @@ a {
   border-bottom: 1px solid var(--border);
 }
 
+.filter-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+  padding: 6px;
+  background: var(--bg-alt);
+  border-radius: 12px;
+  width: fit-content;
+}
+
+.filter-tab {
+  display: flex;
+  align-items: center;
+  padding: 12px 22px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.filter-tab:hover {
+  color: var(--text);
+}
+
+.filter-tab.active {
+  background: var(--bg);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+
+.filter-count {
+  margin-left: 8px;
+  font-size: 0.78rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--border);
+  color: var(--text-muted);
+  min-width: 20px;
+  text-align: center;
+}
+
+.filter-tab.active .filter-count {
+  background: var(--accent);
+  color: white;
+}
+
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 28px;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 32px;
 }
 
 .project-card {
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
   background-color: var(--bg);
   box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .project-thumb {
   position: relative;
-  height: 140px;
+  height: 160px;
   background: linear-gradient(135deg, var(--accent), var(--bg-alt));
   display: flex;
   align-items: center;
@@ -273,55 +331,55 @@ a {
 }
 
 .project-thumb-initial {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 800;
   color: rgba(255, 255, 255, 0.85);
 }
 
 .project-type-badge {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 3px 10px;
+  top: 12px;
+  right: 12px;
+  padding: 4px 12px;
   border-radius: 999px;
   background: rgba(0, 0, 0, 0.45);
   color: white;
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 600;
   backdrop-filter: blur(2px);
 }
 
 .project-info {
-  padding: 16px 18px 8px;
+  padding: 22px 24px 12px;
   flex: 1;
 }
 
 .project-title {
-  margin: 0 0 6px;
-  font-size: 1.05rem;
+  margin: 0 0 10px;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--text);
 }
 
 .project-desc {
-  margin: 0 0 12px;
+  margin: 0 0 16px;
   color: var(--text-muted);
-  font-size: 0.88rem;
-  line-height: 1.5;
+  font-size: 0.92rem;
+  line-height: 1.65;
 }
 
 .project-stack {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 7px;
 }
 
 .stack-chip {
-  padding: 3px 10px;
+  padding: 4px 11px;
   border-radius: 6px;
   background: var(--bg-alt);
   border: 1px solid var(--border);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-muted);
 }
@@ -329,29 +387,29 @@ a {
 .project-actions {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 14px 18px 18px;
+  gap: 10px;
+  padding: 18px 24px 24px;
 }
 
 .project-note {
   margin: 0;
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   color: var(--text-muted);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .project-links {
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
 .btn-demo,
 .btn-code {
   flex: 1;
   text-align: center;
-  padding: 10px 0;
-  border-radius: 6px;
-  font-size: 0.85rem;
+  padding: 11px 0;
+  border-radius: 7px;
+  font-size: 0.88rem;
   font-weight: 600;
   cursor: pointer;
   transition: opacity 0.2s ease, background-color 0.2s ease;

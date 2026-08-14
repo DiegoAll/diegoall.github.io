@@ -8,6 +8,7 @@ const projects = [
     category: 'development',
     description: 'Proyecto y comunidad de ciberseguridad donde se promueven conocimientos de seguridad informática alineados con las tendencias tecnológicas actuales y la industria.',
     stack: ['Golang', 'React', 'Digital Ocean'],
+    gradient: 'linear-gradient(135deg, #7f1d1d, #1a1a1a)',
     links: [
       { label: 'Sitio', url: 'https://thepragmatic.xyz/', variant: 'primary' },
       { label: 'Blog', url: 'https://blog.thepragmatic.xyz/', variant: 'secondary' },
@@ -53,19 +54,31 @@ const projects = [
     stack: ['Golang', 'Google Gemini API'],
     links: [
       { label: 'Code', url: 'https://github.com/DiegoAll/rest-api-golang-gen', variant: 'secondary' },
+      // Cuando despliegues Swagger, agrega aquí:
+      // { label: 'Demo', url: 'https://tu-api.up.railway.app/swagger/index.html', variant: 'primary' },
     ],
   },
 
   // ── Ciberseguridad ───────────────────────────────────
   {
     title: 'k8s-runtime-sec',
-    type: 'Empresarial · Privado',
+    type: 'Personal',
     category: 'security',
     description: 'CLI para simular comportamientos maliciosos en clústeres de Kubernetes. Incluye dos escenarios de incidentes de seguridad relacionados con escalación de privilegios y ejecución de malware, diseñados para crear conciencia sobre runtime security.',
     stack: ['Golang', 'Kubernetes', 'EKS'],
-    confidential: true,
-    note: 'Desarrollado en el contexto de Mercado Libre. Código fuente confidencial.',
-    links: [],
+    links: [
+      { label: 'Code', url: 'https://github.com/DiegoAll/k8s-runtime-sec', variant: 'secondary' },
+    ],
+  },
+  {
+    title: 'go-vulnerable-api',
+    type: 'Personal',
+    category: 'security',
+    description: 'REST API deliberadamente vulnerable construida en Go, que demuestra vulnerabilidades comunes de seguridad incluyendo SQL Injection (SQLi) e Insecure Direct Object Reference (IDOR).',
+    stack: ['Golang', 'SQLi', 'IDOR'],
+    links: [
+      { label: 'Code', url: 'https://github.com/diego-all/go-vulnerable-api', variant: 'secondary' },
+    ],
   },
   {
     title: 'CVE-2023-4911 (Looney Tunables) Detection',
@@ -95,6 +108,8 @@ const projects = [
     stack: ['Golang', 'MongoDB', 'AWS CloudTrail'],
     links: [
       { label: 'Code', url: 'https://github.com/DiegoAll/cloudtrail-enrichment-api-golang', variant: 'secondary' },
+      // Cuando despliegues Swagger, agrega aquí:
+      // { label: 'Demo', url: 'https://tu-api.up.railway.app/swagger/index.html', variant: 'primary' },
     ],
   },
 ];
@@ -110,7 +125,10 @@ function ProjectCard({ project }) {
 
   return (
     <div className="project-card">
-      <div className="project-thumb">
+      <div
+        className="project-thumb"
+        style={project.gradient ? { background: project.gradient } : undefined}
+      >
         <span className="project-thumb-initial">{initial}</span>
         <span className="project-type-badge">{project.type}</span>
       </div>
@@ -158,6 +176,9 @@ function Projects() {
     ? projects
     : projects.filter((p) => p.category === activeFilter);
 
+  const countFor = (key) =>
+    key === 'all' ? projects.length : projects.filter((p) => p.category === key).length;
+
   return (
     <section className="projects-page">
       <h1 className="section-title">Projects</h1>
@@ -169,7 +190,8 @@ function Projects() {
             className={`filter-tab ${activeFilter === f.key ? 'active' : ''}`}
             onClick={() => setActiveFilter(f.key)}
           >
-            {f.label}
+            <span>{f.label}</span>
+            <span className="filter-count">{countFor(f.key)}</span>
           </button>
         ))}
       </div>
