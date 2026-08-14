@@ -1,7 +1,11 @@
+import { useState } from 'react';
+
 const projects = [
+  // ── Desarrollo de Software ──────────────────────────
   {
     title: 'ThePragmatic.xyz',
     type: 'Comunidad',
+    category: 'development',
     description: 'Proyecto y comunidad de ciberseguridad donde se promueven conocimientos de seguridad informática alineados con las tendencias tecnológicas actuales y la industria.',
     stack: ['Golang', 'React', 'Digital Ocean'],
     links: [
@@ -10,35 +14,9 @@ const projects = [
     ],
   },
   {
-    title: 'rest-api-golang-gen',
-    type: 'Personal',
-    description: 'Genera el scaffold de una REST API en Golang a partir de la especificación de un modelo de dominio. Próximamente incorporará funcionalidades para crear APIs REST seguras. Integrado con Google Gemini.',
-    stack: ['Golang', 'Google Gemini API'],
-    links: [
-      { label: 'Code', url: 'https://github.com/DiegoAll/rest-api-golang-gen', variant: 'secondary' },
-    ],
-  },
-  {
-    title: 'cloudtrail-enrichment-api-golang',
-    type: 'Personal',
-    description: 'API REST de monitoreo de seguridad que enriquece con geolocalización de IP los logs de AWS CloudTrail. Arquitectura pensada para aprovechar MongoDB en el almacenamiento y procesamiento de estos logs.',
-    stack: ['Golang', 'MongoDB', 'AWS CloudTrail'],
-    links: [
-      { label: 'Code', url: 'https://github.com/DiegoAll/cloudtrail-enrichment-api-golang', variant: 'secondary' },
-    ],
-  },
-  {
-    title: 'restful-rds-golang-products',
-    type: 'Personal',
-    description: 'Microservicio RESTful para la gestión de datos de un torneo de fútbol. Utiliza recursos de AWS, provisionados y desplegados mediante Terraform.',
-    stack: ['Golang', 'AWS RDS', 'Terraform'],
-    links: [
-      { label: 'Code', url: 'https://github.com/DiegoAll/restful-rds-golang-products', variant: 'secondary' },
-    ],
-  },
-  {
     title: 'Secure Coding Training Portal',
     type: 'Empresarial · Privado',
+    category: 'development',
     description: 'Portal desarrollado para entrenar a los equipos de desarrollo de Bold en buenas prácticas de seguridad y diseño seguro de software.',
     stack: ['Golang', 'React', 'AWS'],
     confidential: true,
@@ -50,12 +28,81 @@ const projects = [
   {
     title: 'Anomaly Detection',
     type: 'Empresarial · Privado',
+    category: 'development',
     description: 'Sistema de detección de anomalías de seguridad desarrollado durante mi tiempo en Mercado Libre, orientado a observabilidad y respuesta temprana ante comportamientos inusuales en la infraestructura.',
     stack: ['Golang', 'Observability', 'AWS'],
     confidential: true,
     note: 'Proyecto propiedad de Mercado Libre. Código fuente confidencial, no disponible públicamente.',
     links: [],
   },
+  {
+    title: 'restful-rds-golang-products',
+    type: 'Personal',
+    category: 'development',
+    description: 'Microservicio RESTful para la gestión de datos de un torneo de fútbol. Utiliza recursos de AWS, provisionados y desplegados mediante Terraform.',
+    stack: ['Golang', 'AWS RDS', 'Terraform'],
+    links: [
+      { label: 'Code', url: 'https://github.com/DiegoAll/restful-rds-golang-products', variant: 'secondary' },
+    ],
+  },
+  {
+    title: 'rest-api-golang-gen',
+    type: 'Personal',
+    category: 'development',
+    description: 'Genera el scaffold de una REST API en Golang a partir de la especificación de un modelo de dominio. Próximamente incorporará funcionalidades para crear APIs REST seguras. Integrado con Google Gemini.',
+    stack: ['Golang', 'Google Gemini API'],
+    links: [
+      { label: 'Code', url: 'https://github.com/DiegoAll/rest-api-golang-gen', variant: 'secondary' },
+    ],
+  },
+
+  // ── Ciberseguridad ───────────────────────────────────
+  {
+    title: 'k8s-runtime-sec',
+    type: 'Empresarial · Privado',
+    category: 'security',
+    description: 'CLI para simular comportamientos maliciosos en clústeres de Kubernetes. Incluye dos escenarios de incidentes de seguridad relacionados con escalación de privilegios y ejecución de malware, diseñados para crear conciencia sobre runtime security.',
+    stack: ['Golang', 'Kubernetes', 'EKS'],
+    confidential: true,
+    note: 'Desarrollado en el contexto de Mercado Libre. Código fuente confidencial.',
+    links: [],
+  },
+  {
+    title: 'CVE-2023-4911 (Looney Tunables) Detection',
+    type: 'Personal',
+    category: 'security',
+    description: 'Demo de detección en tiempo real de la vulnerabilidad CVE-2023-4911 (Looney Tunables) utilizando reglas de runtime security con Falco.',
+    stack: ['Falco', 'Kubernetes', 'Runtime Security'],
+    links: [
+      { label: 'Demo', url: 'https://youtu.be/lPJQxTmpm3Y', variant: 'primary' },
+    ],
+  },
+  {
+    title: 'vigenereDecipher',
+    type: 'Personal',
+    category: 'security',
+    description: 'Programa que implementa un problema criptográfico de descifrado del cifrado de Vigenère.',
+    stack: ['Golang', 'Criptografía'],
+    links: [
+      { label: 'Code', url: 'https://github.com/DiegoAll/vigenereDecipher', variant: 'secondary' },
+    ],
+  },
+  {
+    title: 'cloudtrail-enrichment-api-golang',
+    type: 'Personal',
+    category: 'security',
+    description: 'API REST de monitoreo de seguridad que enriquece con geolocalización de IP los logs de AWS CloudTrail. Arquitectura pensada para aprovechar MongoDB en el almacenamiento y procesamiento de estos logs.',
+    stack: ['Golang', 'MongoDB', 'AWS CloudTrail'],
+    links: [
+      { label: 'Code', url: 'https://github.com/DiegoAll/cloudtrail-enrichment-api-golang', variant: 'secondary' },
+    ],
+  },
+];
+
+const filters = [
+  { key: 'all', label: 'Todos' },
+  { key: 'development', label: 'Desarrollo' },
+  { key: 'security', label: 'Ciberseguridad' },
 ];
 
 function ProjectCard({ project }) {
@@ -105,11 +152,30 @@ function ProjectCard({ project }) {
 }
 
 function Projects() {
+  const [activeFilter, setActiveFilter] = useState('all');
+
+  const filteredProjects = activeFilter === 'all'
+    ? projects
+    : projects.filter((p) => p.category === activeFilter);
+
   return (
     <section className="projects-page">
       <h1 className="section-title">Projects</h1>
+
+      <div className="filter-tabs">
+        {filters.map((f) => (
+          <button
+            key={f.key}
+            className={`filter-tab ${activeFilter === f.key ? 'active' : ''}`}
+            onClick={() => setActiveFilter(f.key)}
+          >
+            {f.label}
+          </button>
+        ))}
+      </div>
+
       <div className="project-grid">
-        {projects.map((p) => (
+        {filteredProjects.map((p) => (
           <ProjectCard project={p} key={p.title} />
         ))}
       </div>
