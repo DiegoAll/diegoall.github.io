@@ -3,7 +3,7 @@ import { useState } from 'react';
 const skills = [
   'Golang', 'Python', 'Gin Framework', 'Docker', 'Kubernetes',
   'AWS', 'GCP', 'MongoDB', 'PostgreSQL', 'MySQL', 'React',
-  'Microservices', 'Terraform', 'Cybersecurity',
+  'Microservices', 'Terraform', 'Cybersecurity', 'LLM Integration',
 ];
 
 const experience = [
@@ -77,9 +77,26 @@ const education = [
 ];
 
 const courses = [
+  {
+    title: 'Mastering Go Programming',
+    place: 'Udemy',
+    period: 'Ago 2025',
+    credentialUrl: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-72aa1fa2-4cd5-4cfd-a8c3-14ec917f1c3a.pdf',
+  },
   { title: 'AWS Security Essentials', place: 'AWS Training', period: 'Jul 2024' },
   { title: 'Certified Backend Secure Developer 2023 (Golang)', place: 'Secure Code Warrior', period: 'Jun 2024' },
-  { title: 'Backend con Go', place: 'Platzi', period: 'Jun 2022 - Dic 2022' },
+  {
+    title: 'Working with Vue 3 and Go (Golang)',
+    place: 'Udemy',
+    period: 'Jul 2023',
+    credentialUrl: 'https://www.udemy.com/certificate/UC-28376f00-8aa1-4560-a962-824db4effde9/',
+  },
+  {
+    title: 'Backend con Go',
+    place: 'Platzi',
+    period: 'Jun 2022 - Dic 2022',
+    credentialUrl: 'https://platzi.com/p/DiegoAll/ruta/7171-web-go/diploma/detalle/',
+  },
   { title: 'Security in Google Cloud', place: 'Arki1', period: 'Ago 2022' },
   { title: 'Networking in Google Cloud', place: 'Arki1', period: 'Jul 2022 - Ago 2022' },
   { title: 'Auditor interno ISO/IEC 27001:2013 - SGSI', place: 'SGS Academy Perú', period: 'Nov 2020' },
@@ -132,7 +149,6 @@ function IconGithub() {
 function About() {
   const [showAllExperience, setShowAllExperience] = useState(false);
   const [showAllCourses, setShowAllCourses] = useState(false);
-
   const visibleExperience = showAllExperience ? experience : experience.slice(0, 3);
   const visibleCourses = showAllCourses ? courses : courses.slice(0, 3);
 
@@ -237,6 +253,16 @@ function About() {
                 <span className="timeline-period">{course.period}</span>
               </div>
               <p className="timeline-place">{course.place}</p>
+              {course.credentialUrl && (
+                <a
+                  className="credential-link"
+                  href={course.credentialUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Ver credencial ↗
+                </a>
+              )}
             </div>
           ))}
         </div>
