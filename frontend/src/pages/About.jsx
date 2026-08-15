@@ -3,7 +3,7 @@ import { useState } from 'react';
 const skills = [
   'Golang', 'Python', 'Gin Framework', 'Docker', 'Kubernetes',
   'AWS', 'GCP', 'MongoDB', 'PostgreSQL', 'MySQL', 'React',
-  'Microservices', 'Terraform', 'Redis', 'Flask', 'FastAPI','Cybersecurity', 'LLM Integration', 
+  'Microservices', 'Terraform', 'Redis', 'Flask', 'FastAPI','Cybersecurity', 'Jenkins','LLM Integration', 
   'Langchain', 'VibeCoding', 'PgVector', 'Pinecone'
 ];
 

@@ -4,6 +4,15 @@ on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -24,7 +33,18 @@ jobs:
         run: npm run build
         working-directory: ./frontend
 
-      - name: Deploy to GitHub Pages 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Upload Pages Artifact 📤
+        uses: actions/upload-pages-artifact@v3
         with:
-          folder: frontend/dist # Cambia a 'frontend/build' si usas Create React App en lugar de Vite
+          path: ./frontend/dist
+
+  deploy:
+    needs: build-and-deploy
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages 🚀
+        id: deployment
+        uses: actions/deploy-pages@v4
