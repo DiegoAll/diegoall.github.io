@@ -1,6 +1,8 @@
 # portfolio
 
 
+- REBASE
+- CHERRY PICK
 
     cd ~/Projects/portfolio
     npm create vite@latest frontend -- --template react
@@ -18,3 +20,8 @@ Proyecto destacado: una card resaltando tu proyecto más fuerte (ej. ThePragmati
 Preview del último post del blog: cuando tengas el blog andando, esto le da sensación de "sitio vivo" y da razón para que alguien vuelva a visitarlo.
 Botón de descargar CV en PDF — es algo que casi todo visitante de un portafolio espera encontrar, y hoy no lo tienes.
 Íconos de tecnologías en vez de solo texto en los badges — más impacto visual con poco esfuerzo (librerías como react-icons ya traen los logos de Go, Python, AWS, etc.).
+
+
+go: go.mod requires go >= 1.23 (running go 1.22.12; GOTOOLCHAIN=local)
+
+Tu Dockerfile usa golang:1.22-alpine como imagen base, pero go.mod dice go 1.23. Con GOTOOLCHAIN=local (default en imágenes alpine), Go no descarga automáticamente un toolchain más nuevo — simplemente falla.
