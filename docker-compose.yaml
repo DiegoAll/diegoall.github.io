@@ -1,0 +1,106 @@
+version: '3.8'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Docker Compose — Portfolio Backend
+#
+# Valores sensibles (JWT_SECRET, etc.) se leen desde el archivo .env en la
+# raíz del proyecto. Copiar .env.example → .env y completar antes de levantar.
+#
+# Para levantar:
+#   cp .env.example .env   # Solo la primera vez
+#   docker compose up -d
+# ─────────────────────────────────────────────────────────────────────────────
+
+services:
+  # ── Base de Datos ────────────────────────────────────────────────────────
+  db:
+    image: 'postgres:14.5-alpine'
+    container_name: portfolio-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: portfolio-db
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      - ./backend/sql/init.sql:/docker-entrypoint-initdb.d/01_init.sql
+
+  # ── Backend en Go ─────────────────────────────────────────────────────────
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: portfolio-api
+    restart: always
+    # Solo Nginx puede llegar al puerto 8000. Para debug local descomenta
+    # 'ports' y comenta 'expose'.
+    expose:
+      - "8000"
+    # ports:
+    #   - "8000:8000"   # ← Solo para debug directo sin Nginx
+    env_file:
+      - .env
+    environment:
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: portfolio-db
+      DB_SSLMODE: disable
+
+      JWT_SECRET: "${JWT_SECRET}"
+      JWT_ISSUER: "${JWT_ISSUER:-diegoall.dev}"
+      JWT_AUDIENCE: "${JWT_AUDIENCE:-diegoall.dev}"
+      JWT_ACCESS_TTL_MIN: "${JWT_ACCESS_TTL_MIN:-15}"
+      JWT_REFRESH_TTL_HOURS: "${JWT_REFRESH_TTL_HOURS:-168}"
+      COOKIE_DOMAIN: "${COOKIE_DOMAIN:-}"    # Vacío para localhost; dominio real en producción
+
+      FRONTEND_URL: "${FRONTEND_URL:-http://localhost:5173}"
+
+      # ── Bootstrap del admin ─────────────────────────────────────────────
+      # Si el usuario ADMIN_EMAIL no existe en admin_users, el backend lo crea
+      # al arrancar (bcrypt hash calculado en caliente, ver bootstrapAdminUser
+      # en cmd/api/main.go). Es idempotente: en arranques posteriores no hace
+      # nada si el usuario ya existe.
+      # Recomendado: una vez que el admin ya se creó, borrar ADMIN_PASSWORD
+      # de tu .env (el hash queda en la DB, la variable en texto plano no
+      # hace falta más).
+      ADMIN_EMAIL: "${ADMIN_EMAIL:-}"
+      ADMIN_PASSWORD: "${ADMIN_PASSWORD:-}"
+    depends_on:
+      - db
+
+  # ── Nginx (reverse proxy) ─────────────────────────────────────────────────
+  nginx:
+    build: ./nginx
+    container_name: portfolio-proxy
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+
+  # ── Frontend en React (Vite) ────────────────────────────────────────────
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: portfolio-web
+    restart: always
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost
+    depends_on:
+      - api
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Notas de arquitectura:
+#   expose: "8000"      → puerto solo visible entre contenedores (Nginx → api).
+#   ports:  "8000:8000" → puerto visible al host (solo para debug).
+# ─────────────────────────────────────────────────────────────────────────────

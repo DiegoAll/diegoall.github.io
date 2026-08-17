@@ -1,0 +1,43 @@
+# nginx/default.conf.prod — producción
+# ─────────────────────────────────────────────────────────────────────────────
+# A diferencia del proyecto de Bold (frontend servido vía Amplify aparte),
+# acá asumo que diegoall.github.io se sirve desde GitHub Pages y NO pasa por
+# este Nginx — este server block solo expone la API bajo /v1.
+#
+# Si en algún momento preferís servir el build estático del frontend desde
+# este mismo Nginx en vez de GitHub Pages, descomentá el segundo location y
+# montá la carpeta ./frontend/dist como volumen (o cópiala en el Dockerfile).
+# ─────────────────────────────────────────────────────────────────────────────
+
+server {
+    listen 80;
+    server_name localhost;
+    server_tokens off;
+
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Cross-Origin-Resource-Policy "same-origin" always;
+
+    # ── API ───────────────────────────────────────────────────────────────
+    location ^~ /v1/ {
+        # Docker Compose: 'api' resuelve por el DNS interno del stack.
+        # Si migrás a un patrón sidecar (ECS bridge mode, como en Bold),
+        # cambiar a http://127.0.0.1:8000 — ambos contenedores de la misma
+        # task comparten namespace de red y 'api' ya no resuelve como host.
+        proxy_pass http://api:8000;
+        include /etc/nginx/proxy_params.conf;
+    }
+
+    # ── Frontend estático (opcional) ─────────────────────────────────────
+    # Descomentar solo si servís el build de Vite desde acá en vez de
+    # GitHub Pages. Requiere copiar/montar frontend/dist en esta ruta.
+    # root /usr/share/nginx/html;
+    # location / {
+    #     try_files $uri $uri/ /index.html;
+    # }
+
+    location / {
+        return 404;
+    }
+}
