@@ -25,3 +25,11 @@ Botón de descargar CV en PDF — es algo que casi todo visitante de un portafol
 go: go.mod requires go >= 1.23 (running go 1.22.12; GOTOOLCHAIN=local)
 
 Tu Dockerfile usa golang:1.22-alpine como imagen base, pero go.mod dice go 1.23. Con GOTOOLCHAIN=local (default en imágenes alpine), Go no descarga automáticamente un toolchain más nuevo — simplemente falla.
+
+
+### Deployment
+
+    terraform init
+
+    terraform plan  -var="ssh_pub_key_path=~/.ssh/gcp/gcp_portfolio_backend.pub"
+    terraform apply -var="ssh_pub_key_path=~/.ssh/gcp/gcp_portfolio_backend.pub"
