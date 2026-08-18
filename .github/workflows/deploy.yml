@@ -33,7 +33,8 @@ jobs:
         run: npm run build
         working-directory: ./frontend
         env:
-          VITE_API_URL: http://34.26.185.107
+          # VITE_API_URL: http://34.26.185.107
+          VITE_API_URL: https://34-26-185-107.sslip.io
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
