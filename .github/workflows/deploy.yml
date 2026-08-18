@@ -17,23 +17,25 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js ⚙️
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install Dependencies 📦
+      - name: Install Dependencies
         run: npm install
         working-directory: ./frontend
 
-      - name: Build Project 🏗️
+      - name: Build Project
         run: npm run build
         working-directory: ./frontend
+        env:
+          VITE_API_URL: http://34.26.185.107
 
-      - name: Upload Pages Artifact 📤
+      - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./frontend/dist
@@ -45,6 +47,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy to GitHub Pages 🚀
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
