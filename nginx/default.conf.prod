@@ -4,6 +4,10 @@
 # acá asumo que diegoall.github.io se sirve desde GitHub Pages y NO pasa por
 # este Nginx — este server block solo expone la API bajo /v1.
 #
+# HTTPS con certificado de Let's Encrypt vía sslip.io (dominio automático que
+# resuelve al IP de la VM sin necesidad de dominio propio). El puerto 80 solo
+# redirige a 443; toda la API real se sirve por HTTPS.
+#
 # Si en algún momento preferís servir el build estático del frontend desde
 # este mismo Nginx en vez de GitHub Pages, descomentá el segundo location y
 # montá la carpeta ./frontend/dist como volumen (o cópiala en el Dockerfile).
@@ -11,8 +15,20 @@
 
 server {
     listen 80;
-    server_name localhost;
+    server_name 34-26-185-107.sslip.io;
     server_tokens off;
+
+    # Todo el tráfico HTTP se redirige a HTTPS.
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name 34-26-185-107.sslip.io;
+    server_tokens off;
+
+    ssl_certificate     /etc/letsencrypt/live/34-26-185-107.sslip.io/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/34-26-185-107.sslip.io/privkey.pem;
 
     add_header X-Frame-Options "SAMEORIGIN" always;
     add_header X-Content-Type-Options "nosniff" always;

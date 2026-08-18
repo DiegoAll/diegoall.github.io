@@ -1,13 +1,11 @@
 FROM nginx:alpine
 
-# Copiamos nuestra configuración personalizada.
-# Para producción: cambiar esta línea por
-#   COPY default.conf.prod /etc/nginx/conf.d/default.conf
-# (o parametrizarlo con un build arg — ver comentario al final de este archivo).
-COPY default.conf /etc/nginx/conf.d/default.conf
+# Copiamos la configuración de producción con soporte HTTPS.
+COPY default.conf.prod /etc/nginx/conf.d/default.conf
 COPY proxy_params.conf /etc/nginx/proxy_params.conf
 
 EXPOSE 80
+EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]
 

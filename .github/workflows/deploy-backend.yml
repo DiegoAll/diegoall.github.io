@@ -5,6 +5,7 @@ on:
     branches: [ main ]
     paths:
       - 'backend/**'
+      - 'nginx/**'
       - 'docker-compose.yaml'
 
 concurrency:
@@ -24,4 +25,4 @@ jobs:
           script: |
             cd ~/app
             git pull origin main
-            docker compose up -d --build api
+            docker compose up -d --build api nginx
