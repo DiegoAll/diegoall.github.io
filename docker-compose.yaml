@@ -78,7 +78,13 @@ services:
 
   # ── Nginx (reverse proxy) ─────────────────────────────────────────────────
   nginx:
-    build: ./nginx
+    build:
+      context: ./nginx
+      args:
+        # Vacío/no seteado localmente → cae en el default del Dockerfile
+        # (default.conf, HTTP plano para dev). Solo la VM de producción
+        # define NGINX_CONF=default.conf.prod en su .env.
+        NGINX_CONF: "${NGINX_CONF:-default.conf}"
     container_name: portfolio-proxy
     restart: always
     ports:

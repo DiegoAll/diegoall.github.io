@@ -51,6 +51,14 @@ function Blog() {
           {posts.map((post) => (
             <Link to={`/blog/${post.slug}`} className="blog-card" key={post.slug}>
               <div className="blog-card-body">
+                {post.categories?.length > 0 && (
+                  <div className="blog-card-categories">
+                    {post.categories.map((c) => (
+                      <span className="blog-category-badge" key={c}>{c}</span>
+                    ))}
+                  </div>
+                )}
+
                 <span className="blog-card-date">
                   {new Date(post.created_at).toLocaleDateString('es-CO', {
                     year: 'numeric', month: 'long', day: 'numeric',
@@ -58,6 +66,15 @@ function Blog() {
                 </span>
                 <h2 className="blog-card-title">{post.title}</h2>
                 <p className="blog-card-excerpt">{post.excerpt}</p>
+
+                {post.tags?.length > 0 && (
+                  <div className="blog-card-tags">
+                    {post.tags.map((t) => (
+                      <span className="blog-tag-chip" key={t}>#{t}</span>
+                    ))}
+                  </div>
+                )}
+
                 <span className="blog-card-link">Leer más →</span>
               </div>
 

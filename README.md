@@ -27,6 +27,15 @@ go: go.mod requires go >= 1.23 (running go 1.22.12; GOTOOLCHAIN=local)
 Tu Dockerfile usa golang:1.22-alpine como imagen base, pero go.mod dice go 1.23. Con GOTOOLCHAIN=local (default en imágenes alpine), Go no descarga automáticamente un toolchain más nuevo — simplemente falla.
 
 
+    docker-compose up --build -d
+    docker-compose down
+
+
+
+
+    docker compose exec db psql -U postgres -d portfolio-db
+
+
 ### Deployment
 
     terraform init

@@ -37,6 +37,24 @@ func slugify(title string) string {
 	return slugSanitizer.ReplaceAllString(s, "")
 }
 
+// normalizeList limpia espacios, pasa a minúsculas y elimina duplicados y
+// entradas vacías de una lista de tags o categorías. Se usa tanto en
+// creación como en actualización para que el listado y el filtro (cuando lo
+// agreguemos) siempre comparen valores consistentes.
+func normalizeList(items []string) []string {
+	seen := make(map[string]bool)
+	out := make([]string, 0, len(items))
+	for _, item := range items {
+		v := strings.ToLower(strings.TrimSpace(item))
+		if v == "" || seen[v] {
+			continue
+		}
+		seen[v] = true
+		out = append(out, v)
+	}
+	return out
+}
+
 func (s *DefaultPostService) CreatePost(ctx context.Context, input models.CreatePostInput) (*models.Post, error) {
 	if strings.TrimSpace(input.Title) == "" {
 		return nil, errors.New("el título es obligatorio")
@@ -56,6 +74,8 @@ func (s *DefaultPostService) CreatePost(ctx context.Context, input models.Create
 		Excerpt:    input.Excerpt,
 		Content:    input.Content,
 		CoverImage: input.CoverImage,
+		Tags:       normalizeList(input.Tags),
+		Categories: normalizeList(input.Categories),
 		Published:  input.Published,
 	}
 
@@ -105,6 +125,12 @@ func (s *DefaultPostService) UpdatePost(ctx context.Context, id int, input model
 	}
 	if input.CoverImage != nil {
 		post.CoverImage = *input.CoverImage
+	}
+	if input.Tags != nil {
+		post.Tags = normalizeList(*input.Tags)
+	}
+	if input.Categories != nil {
+		post.Categories = normalizeList(*input.Categories)
 	}
 	if input.Published != nil {
 		post.Published = *input.Published
