@@ -7,9 +7,11 @@ function Home() {
     <div className="hero">
       <img src="/profile.png" alt="Diego Alejandro" className="hero-avatar" />
 
-      <h1 className="hero-title">Diego Alejandro</h1>
+      <p className="hero-eyebrow">DIEGO ALEJANDRO</p>
+      <h1 className="hero-title">Cyber Engineer &amp; Backend Developer</h1>
       <p className="hero-subtitle">
-        Cyber Engineer & Backend Developer — construyendo software seguro con Go, Python y React.
+        Diseño y construyo software seguro con Go y Python, desde la
+        arquitectura hasta cada línea de código.
       </p>
 
       <div className="hero-badges">

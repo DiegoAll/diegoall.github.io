@@ -161,9 +161,18 @@ a {
   border: 1px solid var(--border);
 }
 
+.hero-eyebrow {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
 .hero-title {
-  font-size: 2.75rem;
+  font-size: 2.1rem;
   font-weight: 700;
+  max-width: 640px;
   margin-bottom: 12px;
 }
 
