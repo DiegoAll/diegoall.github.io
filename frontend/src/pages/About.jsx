@@ -3,9 +3,9 @@ import { useState } from 'react';
 const skills = [
   'Golang', 'Python', 'Docker', 'Kubernetes',
   'AWS', 'GCP', 'MongoDB', 'PostgreSQL', 'MySQL', 'React',
-  'Microservices', 'Terraform', 'Redis', 'Flask', 'FastAPI',
-  'Cybersecurity', 'Jenkins', 'Application Security', 'Secure Coding',
-  'LLM Integration', 'Langchain', 'VibeCoding'
+  'Microservices', 'Terraform', 'WebSockets', 'gRPC','Redis', 'Flask', 'FastAPI',
+  'Cybersecurity', 'Jenkins', 'Application Security', 'Secure Coding', 'Event Driven',
+  'LLM Integration', 'Langchain', 'VibeCoding', 'Claude','Antigravity'
 ];
 
 const experience = [
