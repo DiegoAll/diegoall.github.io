@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { marked } from 'marked';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost';
 const WORDS_PER_MINUTE = 200;
@@ -46,6 +47,15 @@ function BlogPost() {
 
     return () => { cancelled = true; };
   }, [slug]);
+
+  // El campo "content" del post se guarda como Markdown (ver ManagePosts.jsx
+  // en el panel de admin) — se convierte a HTML acá, en el momento de mostrarlo,
+  // en vez de guardar HTML ya renderizado en la base de datos. Así, si el admin
+  // vuelve a editar el post, ve el Markdown original y no una sopa de HTML.
+  const renderedContent = useMemo(
+    () => (post ? marked.parse(post.content || '') : ''),
+    [post]
+  );
 
   if (status === 'loading') {
     return <p className="blog-status">Cargando...</p>;
@@ -96,7 +106,7 @@ function BlogPost() {
 
       <div
         className="blog-post-content"
-        dangerouslySetInnerHTML={{ __html: post.content }}
+        dangerouslySetInnerHTML={{ __html: renderedContent }}
       />
 
       {post.tags?.length > 0 && (

@@ -30,7 +30,7 @@ Tu Dockerfile usa golang:1.22-alpine como imagen base, pero go.mod dice go 1.23.
     docker-compose up --build -d
     docker-compose down
 
-
+    docker-compose up -d --force-recreate api
 
 
     docker compose exec db psql -U postgres -d portfolio-db
