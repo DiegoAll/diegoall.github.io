@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-const stack = ['Golang', 'Python', 'AWS', 'Google Cloud', 'Kubernetes', 'Docker', 'Cybersecurity'];
+const stack = ['Golang', 'Python', 'AWS', 'Google Cloud', 'Kubernetes', 'Docker', 'Terraform','Cybersecurity'];
 
 function Home() {
   return (
