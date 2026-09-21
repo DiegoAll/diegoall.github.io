@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import sophosImg from '../assets/1_sophos.jpeg';
 import aligoNacImg from '../assets/2_bcol.jpg';
-import aligoGoldbruteImg from '../assets/3_buc_goldbrute.jpg';
+import aligoGoldbruteImg from '../assets/3_buc_campaign.jpg';
 import meliImg from '../assets/4_meli_site.jpeg';
 import boldImg from '../assets/5_bog_bold.jpeg';
 
