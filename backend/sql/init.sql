@@ -31,6 +31,19 @@ CREATE TABLE IF NOT EXISTS posts (
 CREATE INDEX IF NOT EXISTS idx_posts_published ON posts (published);
 CREATE INDEX IF NOT EXISTS idx_posts_slug ON posts (slug);
 
+-- ── Flags de configuración del sitio ────────────────────────────────────
+-- Tabla genérica key/value. Empieza con "highlights_enabled" (controla si
+-- la pestaña Highlights se muestra en el sitio público) pero sirve para
+-- cualquier otro toggle futuro sin migraciones nuevas.
+CREATE TABLE IF NOT EXISTS site_settings (
+    key   TEXT PRIMARY KEY,
+    value BOOLEAN NOT NULL DEFAULT true
+);
+
+INSERT INTO site_settings (key, value)
+VALUES ('highlights_enabled', true)
+ON CONFLICT (key) DO NOTHING;
+
 -- ── Posts de ejemplo tipo "lorem ipsum" ─────────────────────────────────
 -- Sirven para probar de una vez el listado público, el detalle por slug,
 -- y el filtro published/borrador, mientras se construye el panel admin.

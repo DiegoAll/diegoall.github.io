@@ -25,6 +25,7 @@ func (app *application) routes() http.Handler {
 		r.Get("/health", app.systemController.HealthCheck)
 		r.Get("/posts", app.postController.ListPublicPosts)
 		r.Get("/posts/{slug}", app.postController.GetPostBySlug)
+		r.Get("/settings", app.settingsController.GetPublicSettings)
 
 		// ── Rutas de administración ("ocultas") ──────────────────────────
 		// No están enlazadas desde ninguna vista del frontend público.
@@ -41,6 +42,7 @@ func (app *application) routes() http.Handler {
 				r.Post("/posts", app.postController.CreatePost)
 				r.Put("/posts/{id}", app.postController.UpdatePost)
 				r.Delete("/posts/{id}", app.postController.DeletePost)
+				r.Put("/settings/highlights", app.settingsController.UpdateHighlightsSetting)
 			})
 		})
 	})

@@ -1712,3 +1712,86 @@ a {
 .hl-ach-link:hover {
   text-decoration: underline;
 }
+
+/* ── Admin: tarjeta de configuración + toggle switch ─────────────────── */
+.admin-settings-card {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 20px 0 28px;
+}
+
+.admin-settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.admin-settings-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.admin-settings-desc {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  margin: 0;
+  max-width: 480px;
+}
+
+.admin-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  flex: none;
+}
+.admin-toggle.disabled { opacity: 0.6; cursor: default; }
+
+.admin-toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.admin-toggle-track {
+  width: 40px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--border);
+  position: relative;
+  transition: background 0.2s;
+  flex: none;
+}
+
+.admin-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s;
+}
+
+.admin-toggle input:checked + .admin-toggle-track {
+  background: var(--accent);
+}
+.admin-toggle input:checked + .admin-toggle-track .admin-toggle-thumb {
+  transform: translateX(18px);
+}
+
+.admin-toggle-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  min-width: 46px;
+}

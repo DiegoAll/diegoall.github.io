@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import App from './App';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
@@ -15,7 +15,16 @@ import ManagePosts from './pages/admin/ManagePosts';
 import { ThemeProvider } from './context/ThemeContext';
 import { LanguageProvider } from './context/LanguageContext';
 import { AuthProvider } from './context/AuthContext';
+import { useSiteSettings } from './hooks/useSiteSettings';
 import './index.css';
+
+// Si alguien entra directo a /highlights con el flag apagado desde el panel
+// de admin, se manda a Home en vez de mostrar la página "fantasma".
+function HighlightsGate() {
+  const { settings, loading } = useSiteSettings();
+  if (loading) return null;
+  return settings?.highlights_enabled ? <Highlights /> : <Navigate to="/" replace />;
+}
 
 const router = createBrowserRouter([
   {
@@ -26,7 +35,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: '/projects', element: <Projects /> },
       { path: '/about', element: <About /> },
-      { path: '/highlights', element: <Highlights /> },
+      { path: '/highlights', element: <HighlightsGate /> },
       { path: '/blog', element: <Blog /> },
       { path: '/blog/:slug', element: <BlogPost /> },
     ],

@@ -20,13 +20,14 @@ import (
 )
 
 type application struct {
-	config           *config.Config
-	infoLog          *log.Logger
-	errorLog         *log.Logger
-	middleware       *middleware.Middleware
-	authController   *controllers.AuthController
-	systemController *controllers.SystemController
-	postController   *controllers.PostController
+	config             *config.Config
+	infoLog            *log.Logger
+	errorLog           *log.Logger
+	middleware         *middleware.Middleware
+	authController     *controllers.AuthController
+	systemController   *controllers.SystemController
+	postController     *controllers.PostController
+	settingsController *controllers.SettingsController
 }
 
 func main() {
@@ -74,17 +75,22 @@ func main() {
 	authController := controllers.NewAuthController(authService, jwtService)
 	systemController := controllers.NewSystemController()
 	postController := controllers.NewPostController(postService)
+	// SettingsController habla directo con *sql.DB — no tiene repository ni
+	// service propios porque no hay lógica de negocio que separar (ver
+	// comentario en controllers/settingsController.go).
+	settingsController := controllers.NewSettingsController(db)
 
 	mw := middleware.NewMiddleware(jwtService, authService)
 
 	app := &application{
-		config:           cfg,
-		infoLog:          logger.InfoLog,
-		errorLog:         logger.ErrorLog,
-		middleware:       mw,
-		authController:   authController,
-		systemController: systemController,
-		postController:   postController,
+		config:             cfg,
+		infoLog:            logger.InfoLog,
+		errorLog:           logger.ErrorLog,
+		middleware:         mw,
+		authController:     authController,
+		systemController:   systemController,
+		postController:     postController,
+		settingsController: settingsController,
 	}
 
 	if err := app.serve(); err != nil {

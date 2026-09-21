@@ -2,6 +2,9 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { marked } from 'marked';
 import { useAuth } from '../../context/AuthContext';
 import { useAdminApi } from '../../hooks/useAdminApi';
+import { useTheme } from '../../context/ThemeContext';
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost';
 
 const emptyForm = {
   id: null,
@@ -15,27 +18,106 @@ const emptyForm = {
   published: false,
 };
 
+function ToggleSwitch({ checked, onChange, disabled, label }) {
+  return (
+    <label className={`admin-toggle${disabled ? ' disabled' : ''}`}>
+      <input
+        type="checkbox"
+        checked={checked}
+        disabled={disabled}
+        onChange={(e) => onChange(e.target.checked)}
+      />
+      <span className="admin-toggle-track">
+        <span className="admin-toggle-thumb" />
+      </span>
+      {label && <span className="admin-toggle-label">{label}</span>}
+    </label>
+  );
+}
+
+function SiteSettingsCard() {
+  const { request } = useAdminApi();
+  const [highlightsEnabled, setHighlightsEnabled] = useState(true);
+  const [status, setStatus] = useState('loading');
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`${API_URL}/v1/settings`)
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then((json) => {
+        if (!cancelled) {
+          setHighlightsEnabled(!!json.data?.highlights_enabled);
+          setStatus('ready');
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setStatus('error');
+      });
+    return () => { cancelled = true; };
+  }, []);
+
+  async function handleToggle(next) {
+    setSaving(true);
+    const previous = highlightsEnabled;
+    setHighlightsEnabled(next);
+    try {
+      await request('/v1/admin/settings/highlights', {
+        method: 'PUT',
+        body: JSON.stringify({ enabled: next }),
+      });
+    } catch {
+      setHighlightsEnabled(previous);
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <div className="admin-settings-card">
+      <div className="admin-settings-row">
+        <div>
+          <div className="admin-settings-title">Pestaña Highlights</div>
+          <p className="admin-settings-desc">
+            Controla si "Highlights" aparece en el menú y en el sitio público.
+            Útil para ocultarla una vez consigas empleo, sin tocar código.
+          </p>
+        </div>
+
+        {status === 'loading' && <span className="admin-status">Cargando…</span>}
+        {status === 'error' && <span className="admin-login-error">No se pudo cargar</span>}
+        {status === 'ready' && (
+          <ToggleSwitch
+            checked={highlightsEnabled}
+            disabled={saving}
+            onChange={handleToggle}
+            label={highlightsEnabled ? 'Visible' : 'Oculta'}
+          />
+        )}
+      </div>
+    </div>
+  );
+}
+
 function ManagePosts() {
   const { logout } = useAuth();
   const { request } = useAdminApi();
+  const { theme, toggleTheme } = useTheme();
+
+  const [activeTab, setActiveTab] = useState('posts');
 
   const [posts, setPosts] = useState([]);
-  const [status, setStatus] = useState('loading'); // loading | success | error
+  const [status, setStatus] = useState('loading');
   const [error, setError] = useState('');
   const [form, setForm] = useState(emptyForm);
   const [showForm, setShowForm] = useState(false);
   const [saving, setSaving] = useState(false);
 
-  // Vista previa en vivo: convierte el Markdown que el admin va escribiendo
-  // a HTML con el mismo parser (marked) que usa BlogPost.jsx en el sitio
-  // público — así lo que se ve acá es exactamente lo que verá el visitante.
   const previewHtml = useMemo(() => marked.parse(form.content || ''), [form.content]);
 
   const loadPosts = useCallback(async () => {
     setStatus('loading');
     try {
-      // GET /v1/admin/posts trae TODOS los posts (incluye borradores),
-      // a diferencia de GET /v1/posts que usa el frontend público.
       const json = await request('/v1/admin/posts');
       setPosts(json.data || []);
       setStatus('success');
@@ -108,10 +190,6 @@ function ManagePosts() {
     }
   }
 
-  // togglePublished reutiliza PUT /v1/admin/posts/{id} enviando solo el campo
-  // "published" — el backend soporta actualización parcial (UpdatePostInput
-  // usa punteros: un campo ausente en el JSON significa "no tocar", ver
-  // post.go y post_service.go), así que no hace falta reenviar todo el post.
   async function togglePublished(post) {
     setError('');
     try {
@@ -141,10 +219,20 @@ function ManagePosts() {
   return (
     <div className="admin-page">
       <div className="admin-header">
-        <h1>Gestionar posts</h1>
+        <h1>Panel de administración</h1>
         <div className="admin-header-actions">
-          <button className="admin-btn-primary" onClick={openCreateForm}>
-            + Nuevo post
+          {activeTab === 'posts' && (
+            <button className="admin-btn-primary" onClick={openCreateForm}>
+              + Nuevo post
+            </button>
+          )}
+          <button
+            className="navbar-icon-btn"
+            onClick={toggleTheme}
+            aria-label="Cambiar tema"
+            title="Cambiar tema"
+          >
+            {theme === 'light' ? '🌙' : '☀️'}
           </button>
           <button className="admin-btn-secondary" onClick={logout}>
             Cerrar sesión
@@ -152,56 +240,77 @@ function ManagePosts() {
         </div>
       </div>
 
-      {error && <p className="admin-login-error">{error}</p>}
+      <div className="filter-tabs">
+        <button
+          className={`filter-tab ${activeTab === 'posts' ? 'active' : ''}`}
+          onClick={() => setActiveTab('posts')}
+        >
+          <span>Posts</span>
+        </button>
+        <button
+          className={`filter-tab ${activeTab === 'settings' ? 'active' : ''}`}
+          onClick={() => setActiveTab('settings')}
+        >
+          <span>Configuración</span>
+        </button>
+      </div>
 
-      {status === 'loading' && <p className="admin-status">Cargando posts...</p>}
-      {status === 'error' && !posts.length && (
-        <p className="admin-status">No se pudieron cargar los posts.</p>
-      )}
+      {activeTab === 'settings' && <SiteSettingsCard />}
 
-      {status === 'success' && (
-        <table className="admin-table">
-          <thead>
-            <tr>
-              <th>Título</th>
-              <th>Estado</th>
-              <th>Creado</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {posts.map((post) => (
-              <tr key={post.id}>
-                <td>{post.title}</td>
-                <td>
-                  <span className={`admin-badge ${post.published ? 'published' : 'draft'}`}>
-                    {post.published ? 'Publicado' : 'Borrador'}
-                  </span>
-                </td>
-                <td>{new Date(post.created_at).toLocaleDateString('es-CO')}</td>
-                <td className="admin-table-actions">
-                  <button className="admin-row-btn" onClick={() => openEditForm(post)}>
-                    Editar
-                  </button>
-                  <button
-                    className={post.published ? 'admin-row-btn warn' : 'admin-row-btn success'}
-                    onClick={() => togglePublished(post)}
-                  >
-                    {post.published ? 'Deshabilitar' : 'Publicar'}
-                  </button>
-                  <button className="admin-row-btn danger" onClick={() => handleDelete(post)}>
-                    Eliminar
-                  </button>
-                </td>
-              </tr>
-            ))}
-            {posts.length === 0 && (
-              <tr>
-                <td colSpan="4">Aún no hay posts.</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+      {activeTab === 'posts' && (
+        <>
+          {error && <p className="admin-login-error">{error}</p>}
+
+          {status === 'loading' && <p className="admin-status">Cargando posts...</p>}
+          {status === 'error' && !posts.length && (
+            <p className="admin-status">No se pudieron cargar los posts.</p>
+          )}
+
+          {status === 'success' && (
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>Título</th>
+                  <th>Estado</th>
+                  <th>Creado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {posts.map((post) => (
+                  <tr key={post.id}>
+                    <td>{post.title}</td>
+                    <td>
+                      <span className={`admin-badge ${post.published ? 'published' : 'draft'}`}>
+                        {post.published ? 'Publicado' : 'Borrador'}
+                      </span>
+                    </td>
+                    <td>{new Date(post.created_at).toLocaleDateString('es-CO')}</td>
+                    <td className="admin-table-actions">
+                      <button className="admin-row-btn" onClick={() => openEditForm(post)}>
+                        Editar
+                      </button>
+                      <button
+                        className={post.published ? 'admin-row-btn warn' : 'admin-row-btn success'}
+                        onClick={() => togglePublished(post)}
+                      >
+                        {post.published ? 'Deshabilitar' : 'Publicar'}
+                      </button>
+                      <button className="admin-row-btn danger" onClick={() => handleDelete(post)}>
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+                {posts.length === 0 && (
+                  <tr>
+                    <td colSpan="4">Aún no hay posts.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          )}
+        </>
       )}
 
       {showForm && (

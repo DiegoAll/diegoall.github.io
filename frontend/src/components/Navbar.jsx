@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
+import { useSiteSettings } from '../hooks/useSiteSettings';
 
 function Navbar({ onSearchClick }) {
   const { theme, toggleTheme } = useTheme();
   const { language, changeLanguage } = useLanguage();
   const [langOpen, setLangOpen] = useState(false);
+  const { settings } = useSiteSettings();
 
   return (
     <nav className="navbar">
@@ -14,7 +16,9 @@ function Navbar({ onSearchClick }) {
         <NavLink to="/" end className="navbar-link">Home</NavLink>
         <NavLink to="/projects" className="navbar-link">Projects</NavLink>
         <NavLink to="/about" className="navbar-link">About</NavLink>
-        <NavLink to="/highlights" className="navbar-link">Highlights</NavLink>
+        {settings?.highlights_enabled && (
+          <NavLink to="/highlights" className="navbar-link">Highlights</NavLink>
+        )}
         <NavLink to="/blog" className="navbar-link">Blog</NavLink>
       </div>
 
