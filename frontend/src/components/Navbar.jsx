@@ -14,6 +14,7 @@ function Navbar({ onSearchClick }) {
         <NavLink to="/" end className="navbar-link">Home</NavLink>
         <NavLink to="/projects" className="navbar-link">Projects</NavLink>
         <NavLink to="/about" className="navbar-link">About</NavLink>
+        <NavLink to="/highlights" className="navbar-link">Highlights</NavLink>
         <NavLink to="/blog" className="navbar-link">Blog</NavLink>
       </div>
 

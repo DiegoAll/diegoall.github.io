@@ -5,6 +5,7 @@ import App from './App';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
 import About from './pages/About';
+import Highlights from './pages/Highlights';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import ErrorPage from './components/ErrorPage';
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: '/projects', element: <Projects /> },
       { path: '/about', element: <About /> },
+      { path: '/highlights', element: <Highlights /> },
       { path: '/blog', element: <Blog /> },
       { path: '/blog/:slug', element: <BlogPost /> },
     ],

@@ -1490,3 +1490,225 @@ a {
   border-radius: 8px;
   overflow-x: auto;
 }
+/* ── Highlights ──────────────────────────────────────────────────────── */
+.highlights-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+.highlights-page .section-title {
+  margin-bottom: 16px;
+}
+
+.hl-lede {
+  color: var(--text-muted);
+  margin: 0 0 18px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.hl-h2 {
+  font-size: 1.4rem;
+  margin: 0 0 16px;
+  color: var(--text);
+}
+
+.hl-sub {
+  color: var(--text-muted);
+  margin: 0 0 22px;
+  font-size: 0.95rem;
+}
+
+.hl-carousel {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  margin-bottom: 40px;
+}
+
+.hl-photo-box {
+  width: 100%;
+  height: min(42vh, 380px);
+  background: var(--bg-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hl-photo-box img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.hl-caption {
+  padding: 18px 22px 20px;
+  border-top: 1px solid var(--border);
+}
+
+.hl-company {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.hl-role {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-top: 2px;
+}
+
+.hl-meta {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.hl-chip {
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.hl-detail {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+.hl-nav-btn {
+  position: absolute;
+  top: 0;
+  height: min(42vh, 380px);
+  width: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text);
+  z-index: 5;
+  transition: background 0.2s;
+}
+.hl-nav-btn:hover { background: color-mix(in srgb, var(--text) 8%, transparent); }
+.hl-nav-btn.prev { left: 0; }
+.hl-nav-btn.next { right: 0; }
+.hl-nav-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+.hl-counter {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: color-mix(in srgb, var(--bg) 75%, transparent);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  z-index: 5;
+}
+
+.hl-dots {
+  display: flex;
+  gap: 7px;
+  justify-content: center;
+  padding: 14px 0;
+}
+
+.hl-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--border);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.hl-dot.active {
+  background: var(--accent);
+  width: 20px;
+  border-radius: 5px;
+}
+
+.hl-ach-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+@media (max-width: 680px) {
+  .hl-ach-grid { grid-template-columns: 1fr; }
+}
+
+.hl-ach-card {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+}
+
+.hl-ach-icon {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+.hl-ach-company {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.hl-ach-title {
+  font-weight: 700;
+  margin-bottom: 4px;
+  font-size: 0.92rem;
+}
+
+.hl-ach-detail {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.hl-ach-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+.hl-ach-link:hover {
+  text-decoration: underline;
+}
