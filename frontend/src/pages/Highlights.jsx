@@ -53,27 +53,36 @@ const achievements = [
     company: 'Aligo Defensores Informáticos',
     title: 'Generación automática de reglas para Snort IDS',
     detail: 'Validación y generación automática de reglas para el IDS.',
+    link: 'https://github.com/DiegoAll/MS-NAC',
+    linkLabel: 'Ver código →',
   },
   {
     company: 'Aligo Defensores Informáticos',
     title: 'Automatización de escaneos NAC',
-    detail: 'Integración de escaneos remotos automáticos con PacketFence & OpenVAS.',
-    link: 'https://github.com/DiegoAll/MS-NAC',
+    detail: 'Integración de escaneos remotos automáticos con PacketFence & OpenVAS. (Grupo Bancolombia y Tuya)',
+    confidential: true,
+    note: 'Proyecto propiedad de Bancolombia y Tuya (Grupo Éxito). Algunos detalles de implementación permanecen confidenciales.',
   },
   {
     company: 'Sofka Technologies',
     title: 'Estrategia DevSecOps',
     detail: 'Diseño e implementación de la estrategia DevSecOps de la compañía.',
+    link: '/docs/Sofka2021-SecurityPlan.pdf',
+    linkLabel: 'Ver plan →',
   },
   {
     company: 'Mercado Libre',
     title: 'Falco Runtime Security & Red Teaming',
     detail: 'Nuevas reglas de runtime security y actividades de red teaming sobre clusters de Kubernetes.',
+    link: 'https://www.youtube.com/watch?v=lPJQxTmpm3Y&t=1s',
+    linkLabel: 'Ver video →',
   },
   {
     company: 'Bold',
     title: 'Secure Coding Training Portal',
     detail: 'Desarrollo del portal y rol de Security Coach para los equipos de desarrollo.',
+    link: 'https://www.youtube.com/watch?v=aeQ6cjakCQo',
+    linkLabel: 'Ver video →',
   },
 ];
 
@@ -145,6 +154,9 @@ function AchievementsGrid() {
           <div>
             <div className="hl-ach-company">{a.company}</div>
             <div className="hl-ach-title">{a.title}</div>
+            {a.confidential && (
+              <span className="hl-chip" title={a.note}>🔒 Empresarial · Privado</span>
+            )}
             <div className="hl-ach-detail">{a.detail}</div>
             {a.link && (
               <a
@@ -153,7 +165,7 @@ function AchievementsGrid() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Ver código →
+                {a.linkLabel || 'Ver código →'}
               </a>
             )}
           </div>
