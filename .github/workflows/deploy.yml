@@ -36,6 +36,17 @@ jobs:
           # VITE_API_URL: http://34.26.185.107
           VITE_API_URL: https://34-26-185-107.sslip.io
 
+      # GitHub Pages es un servidor de archivos estáticos: si alguien entra
+      # directo a una ruta de React Router (ej. /blog, /highlights) que no
+      # corresponde a un archivo real, devuelve 404 sin saber que React
+      # debería manejarla. Copiar index.html como 404.html hace que GitHub
+      # Pages sirva la app completa ante cualquier ruta no encontrada, y una
+      # vez cargado el JS, React Router toma el control y muestra la página
+      # correcta según la URL real del navegador.
+      - name: Copiar index.html como 404.html (fallback para rutas de React Router)
+        run: cp dist/index.html dist/404.html
+        working-directory: ./frontend
+
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
