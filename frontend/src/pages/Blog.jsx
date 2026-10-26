@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { dateLocale } from '../i18n/utils';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost';
 
 function Blog() {
+  const { t, i18n } = useTranslation('blog');
   const [posts, setPosts] = useState([]);
   const [status, setStatus] = useState('loading'); // loading | success | error
 
@@ -28,22 +31,22 @@ function Blog() {
     return () => { cancelled = true; };
   }, []);
 
+  const locale = dateLocale(i18n.resolvedLanguage);
+
   return (
     <section className="blog-page">
-      <h1 className="section-title">Blog</h1>
+      <h1 className="section-title">{t('title')}</h1>
 
       {status === 'loading' && (
-        <p className="blog-status">Cargando publicaciones...</p>
+        <p className="blog-status">{t('loading')}</p>
       )}
 
       {status === 'error' && (
-        <p className="blog-status">
-          No se pudieron cargar las publicaciones. Intenta de nuevo más tarde.
-        </p>
+        <p className="blog-status">{t('error')}</p>
       )}
 
       {status === 'success' && posts.length === 0 && (
-        <p className="blog-status">Aún no hay publicaciones.</p>
+        <p className="blog-status">{t('empty')}</p>
       )}
 
       {status === 'success' && posts.length > 0 && (
@@ -60,7 +63,7 @@ function Blog() {
                 )}
 
                 <span className="blog-card-date">
-                  {new Date(post.created_at).toLocaleDateString('es-CO', {
+                  {new Date(post.created_at).toLocaleDateString(locale, {
                     year: 'numeric', month: 'long', day: 'numeric',
                   })}
                 </span>
@@ -69,13 +72,13 @@ function Blog() {
 
                 {post.tags?.length > 0 && (
                   <div className="blog-card-tags">
-                    {post.tags.map((t) => (
-                      <span className="blog-tag-chip" key={t}>#{t}</span>
+                    {post.tags.map((tag) => (
+                      <span className="blog-tag-chip" key={tag}>#{tag}</span>
                     ))}
                   </div>
                 )}
 
-                <span className="blog-card-link">Leer más →</span>
+                <span className="blog-card-link">{t('readMore')}</span>
               </div>
 
               <div className="blog-card-thumb">

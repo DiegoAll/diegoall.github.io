@@ -1,0 +1,47 @@
+{
+  "title": "Highlights",
+  "lede": "A visual tour of the projects and teams I have worked with, and some professional achievements.",
+  "achievementsTitle": "Achievements",
+  "confidentialChip": "Enterprise · Private",
+  "defaultLinkLabel": "View code →",
+  "aria": { "prev": "Previous", "next": "Next", "goTo": "Go to photo {{n}}" },
+  "moments": [
+    { "id": "sophos", "role": "Backend Developer", "place": "Pier 30, Bancolombia", "date": "", "detail": "SWIFT Payments cell working alongside the Infosys team (India)." },
+    { "id": "aligo-nac", "role": "Database Maintenance", "place": "Headquarters, Medellín", "date": "2:00 AM", "detail": "Network Access Control cleanup." },
+    { "id": "aligo-snort", "role": "Security Signature Updates", "place": "Palonegro Airport, Bucaramanga", "date": "", "detail": "Automatic creation and updating of Snort IDS signatures to detect exploitation attempts of CVE-2019-0708 (RDP)." },
+    { "id": "meli", "role": "Golang REST API Development & Kubernetes Security", "place": "Vizcaya Office, Medellín", "date": "", "detail": "Some downtime at the office, between sprints." },
+    { "id": "bold", "role": "Application Security & Secure Coding Coach", "place": "Torre Once, Chicó, Bogotá D.C.", "date": "", "detail": "A bit tired from the early start and the trip, I urgently need a Juan Valdez coffee..." }
+  ],
+  "achievements": [
+    {
+      "id": "aligo-snort",
+      "title": "Automatic rule generation for Snort IDS",
+      "detail": "Automatic validation and generation of rules for the IDS.",
+      "linkLabel": "View code →"
+    },
+    {
+      "id": "aligo-nac",
+      "title": "NAC scan automation",
+      "detail": "Integration of automatic remote scans with PacketFence & OpenVAS. (Grupo Bancolombia and Tuya)",
+      "note": "Project owned by Bancolombia and Tuya (Grupo Éxito). Some implementation details remain confidential."
+    },
+    {
+      "id": "sofka",
+      "title": "DevSecOps strategy",
+      "detail": "Design and implementation of the company's DevSecOps strategy.",
+      "linkLabel": "View plan →"
+    },
+    {
+      "id": "meli-falco",
+      "title": "Falco Runtime Security & Red Teaming",
+      "detail": "New runtime security rules and red teaming activities on Kubernetes clusters.",
+      "linkLabel": "Watch video →"
+    },
+    {
+      "id": "bold-portal",
+      "title": "Secure Coding Training Portal",
+      "detail": "Portal development and Security Coach role for the development teams.",
+      "linkLabel": "Watch video →"
+    }
+  ]
+}

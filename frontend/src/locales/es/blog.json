@@ -1,0 +1,12 @@
+{
+  "title": "Blog",
+  "loading": "Cargando publicaciones...",
+  "loadingPost": "Cargando...",
+  "error": "No se pudieron cargar las publicaciones. Intenta de nuevo más tarde.",
+  "empty": "Aún no hay publicaciones.",
+  "readMore": "Leer más →",
+  "back": "← Volver al blog",
+  "notFound": "No se encontró esta publicación.",
+  "readingTime": "{{minutes}} min de lectura",
+  "updatedOn": "Actualizado el {{date}}"
+}

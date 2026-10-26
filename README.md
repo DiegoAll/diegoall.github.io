@@ -42,3 +42,9 @@ Tu Dockerfile usa golang:1.22-alpine como imagen base, pero go.mod dice go 1.23.
 
     terraform plan  -var="ssh_pub_key_path=~/.ssh/gcp/gcp_portfolio_backend.pub"
     terraform apply -var="ssh_pub_key_path=~/.ssh/gcp/gcp_portfolio_backend.pub"
+
+
+
+# Insert a post
+
+    docker compose exec -T db psql -U postgres -d portfolio-db < ~/insert_post.sql

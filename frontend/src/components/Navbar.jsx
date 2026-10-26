@@ -1,25 +1,30 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
-import { useLanguage } from '../context/LanguageContext';
 import { useSiteSettings } from '../hooks/useSiteSettings';
 
 function Navbar({ onSearchClick }) {
   const { theme, toggleTheme } = useTheme();
-  const { language, changeLanguage } = useLanguage();
+  const { t, i18n } = useTranslation();
   const [langOpen, setLangOpen] = useState(false);
   const { settings } = useSiteSettings();
+
+  function selectLanguage(lang) {
+    i18n.changeLanguage(lang);
+    setLangOpen(false);
+  }
 
   return (
     <nav className="navbar">
       <div className="navbar-links">
-        <NavLink to="/" end className="navbar-link">Home</NavLink>
-        <NavLink to="/projects" className="navbar-link">Projects</NavLink>
-        <NavLink to="/about" className="navbar-link">About</NavLink>
+        <NavLink to="/" end className="navbar-link">{t('nav.home')}</NavLink>
+        <NavLink to="/projects" className="navbar-link">{t('nav.projects')}</NavLink>
+        <NavLink to="/about" className="navbar-link">{t('nav.about')}</NavLink>
         {settings?.highlights_enabled && (
-          <NavLink to="/highlights" className="navbar-link">Highlights</NavLink>
+          <NavLink to="/highlights" className="navbar-link">{t('nav.highlights')}</NavLink>
         )}
-        <NavLink to="/blog" className="navbar-link">Blog</NavLink>
+        <NavLink to="/blog" className="navbar-link">{t('nav.blog')}</NavLink>
       </div>
 
       <div className="navbar-actions">
@@ -53,13 +58,18 @@ function Navbar({ onSearchClick }) {
         </a>
 
         <div className="lang-dropdown">
-          <button className="navbar-icon-btn" onClick={() => setLangOpen(!langOpen)}>
+          <button
+            className="navbar-icon-btn"
+            onClick={() => setLangOpen(!langOpen)}
+            aria-label={t('language.switchTo')}
+            title={t('language.switchTo')}
+          >
             🌐
           </button>
           {langOpen && (
             <div className="lang-menu">
-              <button onClick={() => { changeLanguage('es'); setLangOpen(false); }}>ES</button>
-              <button onClick={() => { changeLanguage('en'); setLangOpen(false); }}>EN</button>
+              <button onClick={() => selectLanguage('es')}>ES</button>
+              <button onClick={() => selectLanguage('en')}>EN</button>
             </div>
           )}
         </div>

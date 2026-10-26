@@ -1,0 +1,12 @@
+{
+  "title": "Blog",
+  "loading": "Loading posts...",
+  "loadingPost": "Loading...",
+  "error": "Posts could not be loaded. Please try again later.",
+  "empty": "No posts yet.",
+  "readMore": "Read more →",
+  "back": "← Back to blog",
+  "notFound": "This post could not be found.",
+  "readingTime": "{{minutes}} min read",
+  "updatedOn": "Updated on {{date}}"
+}

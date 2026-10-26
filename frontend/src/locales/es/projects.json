@@ -1,0 +1,50 @@
+{
+  "title": "Projects",
+  "filters": { "all": "Todos", "development": "Desarrollo", "security": "Ciberseguridad" },
+  "types": { "community": "Comunidad", "enterprise": "Empresarial · Privado", "personal": "Personal" },
+  "links": { "site": "Sitio", "code": "Code", "demo": "Demo", "article": "Artículo" },
+  "items": [
+    {
+      "id": "thepragmatic",
+      "description": "Proyecto y comunidad de ciberseguridad donde se promueven conocimientos de seguridad informática alineados con las tendencias tecnológicas actuales y la industria."
+    },
+    {
+      "id": "secure-coding-portal",
+      "description": "Portal desarrollado para entrenar a los equipos de desarrollo de Bold en buenas prácticas de seguridad y diseño seguro de software.",
+      "note": "Proyecto propiedad de Bold. Algunos detalles de implementación permanecen confidenciales."
+    },
+    {
+      "id": "anomaly-detection",
+      "description": "Sistema de detección de anomalías de seguridad desarrollado y mantenido en Mercado Libre, orientado a observabilidad y respuesta temprana ante comportamientos inusuales en la infraestructura.",
+      "note": "Proyecto propiedad de Mercado Libre. Código fuente confidencial, no disponible públicamente."
+    },
+    {
+      "id": "restful-rds-golang-products",
+      "description": "Microservicio RESTful para la gestión de datos de un torneo de fútbol. Utiliza recursos de AWS, provisionados y desplegados mediante Terraform."
+    },
+    {
+      "id": "rest-api-golang-gen",
+      "description": "Genera el scaffold de una REST API en Golang segura a partir de la especificación de un modelo de dominio. Integrado con Google Gemini."
+    },
+    {
+      "id": "k8s-runtime-sec",
+      "description": "CLI para simular comportamientos maliciosos en clústeres de Kubernetes. Incluye dos escenarios de incidentes de seguridad relacionados con escalación de privilegios y ejecución de malware."
+    },
+    {
+      "id": "go-vulnerable-api",
+      "description": "REST API deliberadamente vulnerable construida en Go, que demuestra vulnerabilidades comunes de seguridad incluyendo SQL Injection (SQLi) e Insecure Direct Object Reference (IDOR)."
+    },
+    {
+      "id": "cve-2023-4911",
+      "description": "Demo de detección en tiempo real de la vulnerabilidad CVE-2023-4911 (Looney Tunables) utilizando reglas de Falco runtime security."
+    },
+    {
+      "id": "vigenere-decipher",
+      "description": "Implementa un criptoanálisis clásico del cifrado Vigenère utilizando la prueba de Kasiski y el análisis de frecuencias."
+    },
+    {
+      "id": "cloudtrail-enrichment",
+      "description": "API REST de monitoreo de seguridad que enriquece con geolocalización de IP los logs de AWS CloudTrail."
+    }
+  ]
+}

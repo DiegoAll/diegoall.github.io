@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-const pages = [
-  { label: 'Home', path: '/' },
-  { label: 'Projects', path: '/projects' },
-  { label: 'About', path: '/about' },
-  { label: 'Blog', path: '/blog' },
-];
+import { useTranslation } from 'react-i18next';
 
 function SearchModal({ open, onClose }) {
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
+  const pages = [
+    { label: t('nav.home'), path: '/' },
+    { label: t('nav.projects'), path: '/projects' },
+    { label: t('nav.about'), path: '/about' },
+    { label: t('nav.blog'), path: '/blog' },
+  ];
 
   useEffect(() => {
     if (!open) setQuery('');
@@ -41,13 +43,13 @@ function SearchModal({ open, onClose }) {
         <input
           autoFocus
           className="search-input"
-          placeholder="Buscar..."
+          placeholder={t('search.placeholder')}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
         <div className="search-results">
           {filtered.length === 0 && (
-            <div className="search-empty">Sin resultados</div>
+            <div className="search-empty">{t('search.empty')}</div>
           )}
           {filtered.map((p) => (
             <button

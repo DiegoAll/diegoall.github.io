@@ -1,117 +1,64 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { mergeById } from '../i18n/utils';
 
 const skills = [
   'Golang', 'Python', 'Docker', 'Kubernetes',
   'AWS', 'GCP', 'MongoDB', 'PostgreSQL', 'MySQL', 'React',
-  'Microservices', 'Terraform', 'WebSockets', 'gRPC','Redis', 'Flask', 'FastAPI',
+  'Microservices', 'Terraform', 'WebSockets', 'gRPC', 'Redis', 'Flask', 'FastAPI',
   'Cybersecurity', 'Jenkins', 'Application Security', 'Secure Coding', 'Event Driven',
-  'LLM Integration', 'Langchain', 'VibeCoding', 'Claude','Antigravity'
+  'LLM Integration', 'Langchain', 'VibeCoding', 'Claude', 'Antigravity'
 ];
 
-const experience = [
-  {
-    role: 'Cyber Security Specialist',
-    company: 'Bold CF',
-    period: 'Oct 2025 - Jul 2026',
-    details: [
-      'Golang Backend Developer & Python Scripting (CDK - CloudFormation)',
-      'Application Security - Secure Coding',
-      'Infrastructure as Code (IAC) en AWS',
-    ],
-  },
-  {
-    role: 'Cyber Engineer',
-    company: 'Mercado Libre',
-    period: 'Nov 2021 - May 2025',
-    details: [
-      'Golang Backend Developer & Python Scripting',
-      'Application Security & S-SDLC (OWASP, AWS WAF, AWS Shield)',
-      'Runtime & Kubernetes Security (EKS, GKE, EC2, GCE, Docker, Rancher)',
-      'Observability Security (Amazon Athena, BigQuery, Elastic Search, GuardDuty, CrowdStrike, Datadog)',
-    ],
-  },
-  {
-    role: 'Senior Security Platform Administrator',
-    company: 'Neosecure',
-    period: 'Jun 2021 - Nov 2021',
-    details: [
-      'Linux System Administration (Fedora, Debian)',
-      'Intrusion Detection System (Snort, Darktrace)',
-      'Vulnerability Assessment and Remediation (Nessus)',
-    ],
-  },
-  {
-    role: 'Cyber Engineer',
-    company: 'Sofka Technologies',
-    period: 'Nov 2020 - Jun 2021',
-    details: [
-      'Application Security Testing (SAST, DAST, SCA, Pentest)',
-      'DevSecOps (AWS CodeBuild & CodePipeline, ZAP, Jenkins, Git, GitLab, Docker, Kubernetes)',
-      'Secure Coding Coach & S-SDLC',
-    ],
-  },
-  {
-    role: 'Security Operations Engineer',
-    company: 'Aligo Defensores Informáticos',
-    period: 'Abr 2018 - Dic 2019',
-    details: [
-      'Linux System Administration (Fedora, Debian, Python & Bash scripting)',
-      'Network Access Control (Packetfence, MySQL)',
-      'Intrusion Detection System (Snort), Malware Analysis (Cuckoo Sandbox)',
-    ],
-  },
-  {
-    role: 'Backend Developer',
-    company: 'Sophos Banking Solutions',
-    period: 'Jun 2016 - Oct 2017',
-    details: [
-      'Backend Developer (Finacle scripting, RPG, PL/SQL Oracle)',
-      'Developer (VB for Applications, Microsoft Access)',
-    ],
-  },
+// Datos que NO cambian con el idioma. Los textos (rol, periodo, detalles)
+// viven en locales/<idioma>/about.json y se unen por `id`.
+const experienceBase = [
+  { id: 'bold', company: 'Bold CF' },
+  { id: 'meli', company: 'Mercado Libre' },
+  { id: 'neosecure', company: 'Neosecure' },
+  { id: 'sofka', company: 'Sofka Technologies' },
+  { id: 'aligo', company: 'Aligo Defensores Informáticos' },
+  { id: 'sophos', company: 'Sophos Banking Solutions' },
 ];
 
-const education = [
-  { title: "Master's Degree in Engineering", place: 'Universidad EAFIT, Medellín', period: 'En curso' },
-  { title: 'Postgraduate Specialization in Software Development', place: 'Universidad EAFIT, Medellín', period: '2024' },
-  { title: 'Postgraduate Specialization in Cybersecurity', place: 'Universidad Pontificia Bolivariana, Medellín', period: '2021' },
-  { title: 'Systems Engineer', place: 'Universidad de Medellín', period: '2018' },
+const educationBase = [
+  { id: 'msc', title: "Master's Degree in Engineering", place: 'Universidad EAFIT, Medellín' },
+  { id: 'spec-software', title: 'Postgraduate Specialization in Software Development', place: 'Universidad EAFIT, Medellín' },
+  { id: 'spec-cyber', title: 'Postgraduate Specialization in Cybersecurity', place: 'Universidad Pontificia Bolivariana, Medellín' },
+  { id: 'systems', title: 'Systems Engineer', place: 'Universidad de Medellín' },
 ];
 
-const courses = [
+const coursesBase = [
   {
+    id: 'go-udemy',
     title: 'Mastering Go Programming',
     place: 'Udemy',
-    period: 'Ago 2025',
     credentialUrl: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-72aa1fa2-4cd5-4cfd-a8c3-14ec917f1c3a.pdf',
   },
-  { title: 'AWS Security Essentials', place: 'AWS Training', period: 'Jul 2024' },
-  { title: 'Certified Backend Secure Developer 2023 (Golang)', place: 'Secure Code Warrior', period: 'Jun 2024' },
+  { id: 'aws-security', title: 'AWS Security Essentials', place: 'AWS Training' },
+  { id: 'scw-backend', title: 'Certified Backend Secure Developer 2023 (Golang)', place: 'Secure Code Warrior' },
   {
+    id: 'vue-go',
     title: 'Working with Vue 3 and Go (Golang)',
     place: 'Udemy',
-    period: 'Jul 2023',
     credentialUrl: 'https://www.udemy.com/certificate/UC-28376f00-8aa1-4560-a962-824db4effde9/',
   },
   {
+    id: 'platzi-go',
     title: 'Backend con Go',
     place: 'Platzi',
-    period: 'Jun 2022 - Dic 2022',
     credentialUrl: 'https://platzi.com/p/DiegoAll/ruta/7171-web-go/diploma/detalle/',
   },
-  { title: 'Security in Google Cloud', place: 'Arki1', period: 'Ago 2022' },
-  { title: 'Networking in Google Cloud', place: 'Arki1', period: 'Jul 2022 - Ago 2022' },
-  { title: 'Auditor interno ISO/IEC 27001:2013 - SGSI', place: 'SGS Academy Perú', period: 'Nov 2020' },
-  { title: 'CDSS Certified Defensive Security Specialist', place: 'DSTEAM', period: 'Oct 2019 - Ene 2020' },
-  { title: 'English Certification - APTIS B2', place: 'British Council', period: 'Nov 2018' },
-  { title: 'CODSE Certified Offensive and Defensive Security Expert', place: 'DSTEAM', period: 'Oct 2017 - Dic 2017' },
-  { title: 'CODSP Certified Offensive and Defensive Security Professional', place: 'DSTEAM', period: 'May 2017 - Jun 2017' },
+  { id: 'gcp-security', title: 'Security in Google Cloud', place: 'Arki1' },
+  { id: 'gcp-networking', title: 'Networking in Google Cloud', place: 'Arki1' },
+  { id: 'iso27001', title: 'Auditor interno ISO/IEC 27001:2013 - SGSI', place: 'SGS Academy Perú' },
+  { id: 'cdss', title: 'CDSS Certified Defensive Security Specialist', place: 'DSTEAM' },
+  { id: 'aptis', title: 'English Certification - APTIS B2', place: 'British Council' },
+  { id: 'codse', title: 'CODSE Certified Offensive and Defensive Security Expert', place: 'DSTEAM' },
+  { id: 'codsp', title: 'CODSP Certified Offensive and Defensive Security Professional', place: 'DSTEAM' },
 ];
 
-const languages = [
-  { name: 'Español', level: 'Nativo' },
-  { name: 'Inglés', level: 'B2' },
-];
+const languagesBase = [{ id: 'spanish' }, { id: 'english' }];
 
 function IconLocation() {
   return (
@@ -149,8 +96,15 @@ function IconGithub() {
 }
 
 function About() {
+  const { t } = useTranslation('about');
   const [showAllExperience, setShowAllExperience] = useState(false);
   const [showAllCourses, setShowAllCourses] = useState(false);
+
+  const experience = mergeById(experienceBase, t('experience', { returnObjects: true }));
+  const education = mergeById(educationBase, t('education', { returnObjects: true }));
+  const courses = mergeById(coursesBase, t('courses', { returnObjects: true }));
+  const languages = mergeById(languagesBase, t('languages', { returnObjects: true }));
+
   const visibleExperience = showAllExperience ? experience : experience.slice(0, 3);
   const visibleCourses = showAllCourses ? courses : courses.slice(0, 3);
 
@@ -159,7 +113,7 @@ function About() {
       <div className="about-header">
         <img src="/profile.png" alt="Diego Alejandro" className="about-avatar" />
         <h1 className="about-name">Diego Alejandro Posada Llano</h1>
-        <p className="about-role">Cyber Engineer & Backend Developer</p>
+        <p className="about-role">{t('role')}</p>
 
         <div className="about-info-card">
           <div className="about-info-item">
@@ -182,19 +136,12 @@ function About() {
       </div>
 
       <section className="about-section">
-        <h2 className="about-section-title">Sobre mí</h2>
-        <p className="about-text">
-          Systems Engineer con experiencia en desarrollo de software y ciberseguridad
-          para los sectores bancario y e-commerce. Disfruto participar en todas las
-          etapas del ciclo de vida del software: diseño, implementación, evaluación y
-          mantenimiento de sistemas. Conocimiento sólido en desarrollo backend con Go,
-          Python, sistemas Unix, seguridad ofensiva y defensiva, y controles de
-          seguridad perimetral (on-premise y cloud).
-        </p>
+        <h2 className="about-section-title">{t('sections.about')}</h2>
+        <p className="about-text">{t('summary')}</p>
       </section>
 
       <section className="about-section">
-        <h2 className="about-section-title">Stack</h2>
+        <h2 className="about-section-title">{t('sections.stack')}</h2>
         <div className="about-skills">
           {skills.map((skill) => (
             <span className="skill-chip" key={skill}>{skill}</span>
@@ -203,16 +150,16 @@ function About() {
       </section>
 
       <section className="about-section">
-        <h2 className="about-section-title">Experiencia</h2>
+        <h2 className="about-section-title">{t('sections.experience')}</h2>
         <div className="timeline">
           {visibleExperience.map((job) => (
-            <div className="timeline-item" key={job.role + job.company}>
+            <div className="timeline-item" key={job.id}>
               <div className="timeline-header">
                 <h3 className="timeline-role">{job.role} · {job.company}</h3>
                 <span className="timeline-period">{job.period}</span>
               </div>
               <ul className="timeline-details">
-                {job.details.map((d) => (
+                {(job.details || []).map((d) => (
                   <li key={d}>{d}</li>
                 ))}
               </ul>
@@ -225,16 +172,18 @@ function About() {
             className="show-more-btn"
             onClick={() => setShowAllExperience(!showAllExperience)}
           >
-            {showAllExperience ? 'Ver menos ▲' : `Ver toda la experiencia (${experience.length}) ▼`}
+            {showAllExperience
+              ? t('showLess')
+              : t('showAllExperience', { total: experience.length })}
           </button>
         )}
       </section>
 
       <section className="about-section">
-        <h2 className="about-section-title">Educación</h2>
+        <h2 className="about-section-title">{t('sections.education')}</h2>
         <div className="timeline">
           {education.map((edu) => (
-            <div className="timeline-item" key={edu.title}>
+            <div className="timeline-item" key={edu.id}>
               <div className="timeline-header">
                 <h3 className="timeline-role">{edu.title}</h3>
                 <span className="timeline-period">{edu.period}</span>
@@ -246,10 +195,10 @@ function About() {
       </section>
 
       <section className="about-section">
-        <h2 className="about-section-title">Cursos y certificaciones</h2>
+        <h2 className="about-section-title">{t('sections.courses')}</h2>
         <div className="timeline">
           {visibleCourses.map((course) => (
-            <div className="timeline-item" key={course.title}>
+            <div className="timeline-item" key={course.id}>
               <div className="timeline-header">
                 <h3 className="timeline-role">{course.title}</h3>
                 <span className="timeline-period">{course.period}</span>
@@ -262,7 +211,7 @@ function About() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Ver credencial ↗
+                  {t('viewCredential')}
                 </a>
               )}
             </div>
@@ -274,16 +223,18 @@ function About() {
             className="show-more-btn"
             onClick={() => setShowAllCourses(!showAllCourses)}
           >
-            {showAllCourses ? 'Ver menos ▲' : `Ver todos los cursos (${courses.length}) ▼`}
+            {showAllCourses
+              ? t('showLess')
+              : t('showAllCourses', { total: courses.length })}
           </button>
         )}
       </section>
 
       <section className="about-section">
-        <h2 className="about-section-title">Idiomas</h2>
+        <h2 className="about-section-title">{t('sections.languages')}</h2>
         <div className="languages-list">
           {languages.map((lang) => (
-            <div className="language-item" key={lang.name}>
+            <div className="language-item" key={lang.id}>
               <span className="language-name">{lang.name}</span>
               <span className="language-level">{lang.level}</span>
             </div>

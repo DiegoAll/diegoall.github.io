@@ -1,88 +1,47 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { mergeById } from '../i18n/utils';
 import sophosImg from '../assets/1_sophos.jpeg';
 import aligoNacImg from '../assets/2_bcol.jpg';
 import aligoGoldbruteImg from '../assets/3_buc_campaign.jpg';
 import meliImg from '../assets/4_meli_site.jpeg';
 import boldImg from '../assets/5_bog_bold.jpeg';
 
-const moments = [
-  {
-    img: sophosImg,
-    company: 'Sophos Banking Solutions',
-    role: 'Backend Developer',
-    place: 'Pier 30, Bancolombia',
-    date: '',
-    detail: 'Célula SWIFT Payments junto a equipo de Infosys (India).',
-  },
-  {
-    img: aligoNacImg,
-    company: 'Aligo Defensores Informáticos',
-    role: 'Mantenimiento de Bases de Datos',
-    place: 'Dirección General, Medellín',
-    date: '2:00 AM',
-    detail: 'Depuración de Network Access Control.',
-  },
-  {
-    img: aligoGoldbruteImg,
-    company: 'Aligo Defensores Informáticos',
-    role: 'Actualización de firmas de seguridad',
-    place: 'Aeropuerto Palonegro, Bucaramanga',
-    date: '',
-    detail: 'Creación y actualización automática de firmas de Snort IDS para detectar intentos de explotación de CVE-2019-0708 (RDP).',
-  },
-  {
-    img: meliImg,
-    company: 'Mercado Libre',
-    role: 'Golang REST API Development & Kubernetes Security',
-    place: 'Sede Vizcaya, Medellín',
-    date: '',
-    detail: 'Un rato de chill en la oficina, entre sprints.',
-  },
-  {
-    img: boldImg,
-    company: 'Bold',
-    role: 'Application Security & Secure Coding Coach',
-    place: 'Torre Once, Chicó, Bogotá D.C.',
-    date: '',
-    detail: 'Algo cansado por la madrugada y el viaje, necesito un café Juan Valdez urgente...',
-  },
+// Datos fijos. Los textos (role, place, date, detail, title...) viven en
+// locales/<idioma>/highlights.json y se unen por `id`.
+const momentsBase = [
+  { id: 'sophos', img: sophosImg, company: 'Sophos Banking Solutions' },
+  { id: 'aligo-nac', img: aligoNacImg, company: 'Aligo Defensores Informáticos' },
+  { id: 'aligo-snort', img: aligoGoldbruteImg, company: 'Aligo Defensores Informáticos' },
+  { id: 'meli', img: meliImg, company: 'Mercado Libre' },
+  { id: 'bold', img: boldImg, company: 'Bold' },
 ];
 
-const achievements = [
+const achievementsBase = [
   {
+    id: 'aligo-snort',
     company: 'Aligo Defensores Informáticos',
-    title: 'Generación automática de reglas para Snort IDS',
-    detail: 'Validación y generación automática de reglas para el IDS.',
     link: 'https://github.com/DiegoAll/MS-NAC',
-    linkLabel: 'Ver código →',
   },
   {
+    id: 'aligo-nac',
     company: 'Aligo Defensores Informáticos',
-    title: 'Automatización de escaneos NAC',
-    detail: 'Integración de escaneos remotos automáticos con PacketFence & OpenVAS. (Grupo Bancolombia y Tuya)',
     confidential: true,
-    note: 'Proyecto propiedad de Bancolombia y Tuya (Grupo Éxito). Algunos detalles de implementación permanecen confidenciales.',
   },
   {
+    id: 'sofka',
     company: 'Sofka Technologies',
-    title: 'Estrategia DevSecOps',
-    detail: 'Diseño e implementación de la estrategia DevSecOps de la compañía.',
     link: '/docs/Sofka2021-SecurityPlan.pdf',
-    linkLabel: 'Ver plan →',
   },
   {
+    id: 'meli-falco',
     company: 'Mercado Libre',
-    title: 'Falco Runtime Security & Red Teaming',
-    detail: 'Nuevas reglas de runtime security y actividades de red teaming sobre clusters de Kubernetes.',
     link: 'https://www.youtube.com/watch?v=lPJQxTmpm3Y&t=1s',
-    linkLabel: 'Ver video →',
   },
   {
+    id: 'bold-portal',
     company: 'Bold',
-    title: 'Secure Coding Training Portal',
-    detail: 'Desarrollo del portal y rol de Security Coach para los equipos de desarrollo.',
     link: 'https://www.youtube.com/watch?v=aeQ6cjakCQo',
-    linkLabel: 'Ver video →',
   },
 ];
 
@@ -102,6 +61,8 @@ function ChevronRight() {
 }
 
 function MomentsCarousel() {
+  const { t } = useTranslation('highlights');
+  const moments = mergeById(momentsBase, t('moments', { returnObjects: true }));
   const [idx, setIdx] = useState(0);
   const go = (dir) => setIdx((i) => (i + dir + moments.length) % moments.length);
   const current = moments[idx];
@@ -110,10 +71,10 @@ function MomentsCarousel() {
     <div className="hl-carousel">
       <span className="hl-counter">{idx + 1} / {moments.length}</span>
 
-      <button className="hl-nav-btn prev" onClick={() => go(-1)} aria-label="Anterior">
+      <button className="hl-nav-btn prev" onClick={() => go(-1)} aria-label={t('aria.prev')}>
         <ChevronLeft />
       </button>
-      <button className="hl-nav-btn next" onClick={() => go(1)} aria-label="Siguiente">
+      <button className="hl-nav-btn next" onClick={() => go(1)} aria-label={t('aria.next')}>
         <ChevronRight />
       </button>
 
@@ -132,12 +93,12 @@ function MomentsCarousel() {
       </div>
 
       <div className="hl-dots">
-        {moments.map((_, i) => (
+        {moments.map((m, i) => (
           <button
-            key={i}
+            key={m.id}
             className={`hl-dot${i === idx ? ' active' : ''}`}
             onClick={() => setIdx(i)}
-            aria-label={`Ir a la foto ${i + 1}`}
+            aria-label={t('aria.goTo', { n: i + 1 })}
           />
         ))}
       </div>
@@ -146,16 +107,19 @@ function MomentsCarousel() {
 }
 
 function AchievementsGrid() {
+  const { t } = useTranslation('highlights');
+  const achievements = mergeById(achievementsBase, t('achievements', { returnObjects: true }));
+
   return (
     <div className="hl-ach-grid">
-      {achievements.map((a, i) => (
-        <div className="hl-ach-card" key={i}>
+      {achievements.map((a) => (
+        <div className="hl-ach-card" key={a.id}>
           <div className="hl-ach-icon">🏆</div>
           <div>
             <div className="hl-ach-company">{a.company}</div>
             <div className="hl-ach-title">{a.title}</div>
             {a.confidential && (
-              <span className="hl-chip" title={a.note}>🔒 Empresarial · Privado</span>
+              <span className="hl-chip" title={a.note}>🔒 {t('confidentialChip')}</span>
             )}
             <div className="hl-ach-detail">{a.detail}</div>
             {a.link && (
@@ -165,7 +129,7 @@ function AchievementsGrid() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {a.linkLabel || 'Ver código →'}
+                {a.linkLabel || t('defaultLinkLabel')}
               </a>
             )}
           </div>
@@ -176,17 +140,16 @@ function AchievementsGrid() {
 }
 
 export default function Highlights() {
+  const { t } = useTranslation('highlights');
+
   return (
     <section className="highlights-page">
-      <h1 className="section-title">Highlights</h1>
-      <p className="hl-lede">
-        Un recorrido visual por los proyectos y equipos con los que he trabajado,
-        y algunos logros profesionales.
-      </p>
+      <h1 className="section-title">{t('title')}</h1>
+      <p className="hl-lede">{t('lede')}</p>
 
       <MomentsCarousel />
 
-      <h2 className="hl-h2">Logros</h2>
+      <h2 className="hl-h2">{t('achievementsTitle')}</h2>
       <AchievementsGrid />
     </section>
   );
