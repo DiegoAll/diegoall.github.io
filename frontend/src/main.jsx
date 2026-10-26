@@ -13,9 +13,9 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/admin/Login';
 import ManagePosts from './pages/admin/ManagePosts';
 import { ThemeProvider } from './context/ThemeContext';
-import { LanguageProvider } from './context/LanguageContext';
 import { AuthProvider } from './context/AuthContext';
 import { useSiteSettings } from './hooks/useSiteSettings';
+import './i18n'; // inicializa react-i18next (debe cargarse antes de renderizar)
 import './index.css';
 
 // Si alguien entra directo a /highlights con el flag apagado desde el panel
@@ -61,11 +61,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ThemeProvider>
-      <LanguageProvider>
-        <AuthProvider>
-          <RouterProvider router={router} />
-        </AuthProvider>
-      </LanguageProvider>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>
 );

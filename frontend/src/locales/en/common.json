@@ -1,0 +1,16 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "about": "About",
+    "highlights": "Highlights",
+    "blog": "Blog"
+  },
+  "search": {
+    "placeholder": "Search...",
+    "empty": "No results"
+  },
+  "language": {
+    "switchTo": "Switch language"
+  }
+}

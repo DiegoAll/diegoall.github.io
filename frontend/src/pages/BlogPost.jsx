@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { marked } from 'marked';
+import { dateLocale } from '../i18n/utils';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost';
 const WORDS_PER_MINUTE = 200;
@@ -15,13 +17,14 @@ function estimateReadingTime(html) {
   return minutes;
 }
 
-function formatDate(dateString) {
-  return new Date(dateString).toLocaleDateString('es-CO', {
+function formatDate(dateString, locale) {
+  return new Date(dateString).toLocaleDateString(locale, {
     year: 'numeric', month: 'long', day: 'numeric',
   });
 }
 
 function BlogPost() {
+  const { t, i18n } = useTranslation('blog');
   const { slug } = useParams();
   const [post, setPost] = useState(null);
   const [status, setStatus] = useState('loading');
@@ -58,18 +61,19 @@ function BlogPost() {
   );
 
   if (status === 'loading') {
-    return <p className="blog-status">Cargando...</p>;
+    return <p className="blog-status">{t('loadingPost')}</p>;
   }
 
   if (status === 'error' || !post) {
     return (
       <div className="blog-post-page">
-        <p className="blog-status">No se encontró esta publicación.</p>
-        <Link to="/blog" className="blog-back-link">← Volver al blog</Link>
+        <p className="blog-status">{t('notFound')}</p>
+        <Link to="/blog" className="blog-back-link">{t('back')}</Link>
       </div>
     );
   }
 
+  const locale = dateLocale(i18n.resolvedLanguage);
   const readingMinutes = estimateReadingTime(post.content);
   // Se considera "actualizado" solo si la diferencia con la creación supera
   // un minuto — evita mostrar "Actualizado" en posts que nunca se editaron
@@ -80,7 +84,7 @@ function BlogPost() {
 
   return (
     <article className="blog-post-page">
-      <Link to="/blog" className="blog-back-link">← Volver al blog</Link>
+      <Link to="/blog" className="blog-back-link">{t('back')}</Link>
 
       {post.categories?.length > 0 && (
         <div className="blog-card-categories">
@@ -93,13 +97,13 @@ function BlogPost() {
       <h1 className="blog-post-title">{post.title}</h1>
 
       <div className="blog-post-meta">
-        <span>{formatDate(post.created_at)}</span>
+        <span>{formatDate(post.created_at, locale)}</span>
         <span className="blog-post-meta-sep">·</span>
-        <span>{readingMinutes} min de lectura</span>
+        <span>{t('readingTime', { minutes: readingMinutes })}</span>
         {wasUpdated && (
           <>
             <span className="blog-post-meta-sep">·</span>
-            <span>Actualizado el {formatDate(post.updated_at)}</span>
+            <span>{t('updatedOn', { date: formatDate(post.updated_at, locale) })}</span>
           </>
         )}
       </div>
@@ -111,8 +115,8 @@ function BlogPost() {
 
       {post.tags?.length > 0 && (
         <div className="blog-post-tags">
-          {post.tags.map((t) => (
-            <span className="blog-tag-chip" key={t}>#{t}</span>
+          {post.tags.map((tag) => (
+            <span className="blog-tag-chip" key={tag}>#{tag}</span>
           ))}
         </div>
       )}

@@ -1,0 +1,102 @@
+{
+  "role": "Cyber Engineer & Backend Developer",
+  "sections": {
+    "about": "About me",
+    "stack": "Stack",
+    "experience": "Experience",
+    "education": "Education",
+    "courses": "Courses & certifications",
+    "languages": "Languages"
+  },
+  "summary": "Systems Engineer with experience in software development and cybersecurity for the banking and e-commerce sectors. I enjoy taking part in every stage of the software lifecycle: design, implementation, evaluation, and maintenance of systems. Solid knowledge of backend development with Go, Python, Unix systems, offensive and defensive security, and perimeter security controls (on-premise and cloud).",
+  "showLess": "Show less ▲",
+  "showAllExperience": "Show all experience ({{total}}) ▼",
+  "showAllCourses": "Show all courses ({{total}}) ▼",
+  "viewCredential": "View credential ↗",
+  "experience": [
+    {
+      "id": "bold",
+      "role": "Cyber Security Specialist",
+      "period": "Oct 2025 - Jul 2026",
+      "details": [
+        "Golang Backend Developer & Python Scripting (CDK - CloudFormation)",
+        "Application Security - Secure Coding",
+        "Infrastructure as Code (IaC) on AWS"
+      ]
+    },
+    {
+      "id": "meli",
+      "role": "Cyber Engineer",
+      "period": "Nov 2021 - May 2025",
+      "details": [
+        "Golang Backend Developer & Python Scripting",
+        "Application Security & S-SDLC (OWASP, AWS WAF, AWS Shield)",
+        "Runtime & Kubernetes Security (EKS, GKE, EC2, GCE, Docker, Rancher)",
+        "Observability Security (Amazon Athena, BigQuery, Elastic Search, GuardDuty, CrowdStrike, Datadog)"
+      ]
+    },
+    {
+      "id": "neosecure",
+      "role": "Senior Security Platform Administrator",
+      "period": "Jun 2021 - Nov 2021",
+      "details": [
+        "Linux System Administration (Fedora, Debian)",
+        "Intrusion Detection System (Snort, Darktrace)",
+        "Vulnerability Assessment and Remediation (Nessus)"
+      ]
+    },
+    {
+      "id": "sofka",
+      "role": "Cyber Engineer",
+      "period": "Nov 2020 - Jun 2021",
+      "details": [
+        "Application Security Testing (SAST, DAST, SCA, Pentest)",
+        "DevSecOps (AWS CodeBuild & CodePipeline, ZAP, Jenkins, Git, GitLab, Docker, Kubernetes)",
+        "Secure Coding Coach & S-SDLC"
+      ]
+    },
+    {
+      "id": "aligo",
+      "role": "Security Operations Engineer",
+      "period": "Apr 2018 - Dec 2019",
+      "details": [
+        "Linux System Administration (Fedora, Debian, Python & Bash scripting)",
+        "Network Access Control (Packetfence, MySQL)",
+        "Intrusion Detection System (Snort), Malware Analysis (Cuckoo Sandbox)"
+      ]
+    },
+    {
+      "id": "sophos",
+      "role": "Backend Developer",
+      "period": "Jun 2016 - Oct 2017",
+      "details": [
+        "Backend Developer (Finacle scripting, RPG, PL/SQL Oracle)",
+        "Developer (VB for Applications, Microsoft Access)"
+      ]
+    }
+  ],
+  "education": [
+    { "id": "msc", "period": "In progress" },
+    { "id": "spec-software", "period": "2024" },
+    { "id": "spec-cyber", "period": "2021" },
+    { "id": "systems", "period": "2018" }
+  ],
+  "courses": [
+    { "id": "go-udemy", "period": "Aug 2025" },
+    { "id": "aws-security", "period": "Jul 2024" },
+    { "id": "scw-backend", "period": "Jun 2024" },
+    { "id": "vue-go", "period": "Jul 2023" },
+    { "id": "platzi-go", "period": "Jun 2022 - Dec 2022" },
+    { "id": "gcp-security", "period": "Aug 2022" },
+    { "id": "gcp-networking", "period": "Jul 2022 - Aug 2022" },
+    { "id": "iso27001", "period": "Nov 2020" },
+    { "id": "cdss", "period": "Oct 2019 - Jan 2020" },
+    { "id": "aptis", "period": "Nov 2018" },
+    { "id": "codse", "period": "Oct 2017 - Dec 2017" },
+    { "id": "codsp", "period": "May 2017 - Jun 2017" }
+  ],
+  "languages": [
+    { "id": "spanish", "name": "Spanish", "level": "Native" },
+    { "id": "english", "name": "English", "level": "B2" }
+  ]
+}

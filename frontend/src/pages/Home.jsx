@@ -1,18 +1,18 @@
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-const stack = ['Golang', 'Python', 'AWS', 'Google Cloud', 'Kubernetes', 'Docker', 'Terraform','Cybersecurity'];
+const stack = ['Golang', 'Python', 'AWS', 'Google Cloud', 'Kubernetes', 'Docker', 'Terraform', 'Cybersecurity'];
 
 function Home() {
+  const { t } = useTranslation('home');
+
   return (
     <div className="hero">
       <img src="/profile.png" alt="Diego Alejandro" className="hero-avatar" />
 
-      <p className="hero-eyebrow">DIEGO ALEJANDRO</p>
-      <h1 className="hero-title">Cyber Engineer &amp; Backend Developer</h1>
-      <p className="hero-subtitle">
-        Diseño y construyo software seguro con Go y Python, desde la
-        arquitectura hasta cada línea de código.
-      </p>
+      <p className="hero-eyebrow">{t('eyebrow')}</p>
+      <h1 className="hero-title">{t('title')}</h1>
+      <p className="hero-subtitle">{t('subtitle')}</p>
 
       <div className="hero-badges">
         {stack.map((s) => (
@@ -21,9 +21,9 @@ function Home() {
       </div>
 
       <div className="hero-actions">
-        <NavLink to="/projects" className="hero-cta">Ver proyectos</NavLink>
+        <NavLink to="/projects" className="hero-cta">{t('ctaProjects')}</NavLink>
         <a className="hero-cta-secondary" href="mailto:dposadallano@gmail.com">
-          Contactar
+          {t('ctaContact')}
         </a>
       </div>
 
