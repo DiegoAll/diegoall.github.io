@@ -73,6 +73,10 @@ a {
   cursor: pointer;
   padding: 0;
   align-items: center;
+  /* Por encima del panel lateral (z-index 200) para que siga visible y
+     clickeable cuando el panel está abierto. */
+  position: relative;
+  z-index: 250;
 }
 
 .navbar-hamburger span {
@@ -81,6 +85,21 @@ a {
   height: 2px;
   background: var(--text);
   border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Hamburguesa → X cuando el panel está abierto.
+   Desplazamiento = altura de la línea (2px) + gap (5px) = 7px. */
+.navbar-hamburger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.navbar-hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar-hamburger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 .navbar-mobile-actions {
@@ -154,6 +173,7 @@ a {
   box-shadow: var(--shadow);
   overflow: hidden;
   min-width: 100px;
+  z-index: 300;
 }
 
 .lang-menu button {
@@ -184,11 +204,16 @@ a {
   }
 
   /* En desktop .navbar-actions muestra search+github+linkedin+lang+theme.
-     En mobile solo dejamos github y linkedin visibles junto al hamburguesa;
-     el resto (search, idioma, tema) vive dentro del panel desplegable. */
+     En mobile la barra queda limpia: hamburguesa a la izquierda e idioma +
+     tema siempre visibles a la derecha (controles de uso frecuente).
+     Search y las redes sociales (github/linkedin) viven dentro del panel
+     desplegable. */
+  .navbar-actions {
+    gap: 10px;
+  }
+
   .navbar-actions .navbar-search,
-  .navbar-actions .lang-dropdown,
-  .navbar-actions > .navbar-icon-btn:last-child {
+  .navbar-actions .navbar-social {
     display: none;
   }
 
