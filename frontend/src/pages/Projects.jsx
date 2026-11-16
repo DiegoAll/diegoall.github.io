@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { mergeById } from '../i18n/utils';
+import DetailModal from '../components/DetailModal';
+import { useModalParam } from '../hooks/useModalParam';
+import { useVisibleProjects } from '../hooks/useVisibleProjects';
 import thePragmaticCover from '../assets/thepragmatic_cybersecurity_notes_cover.jpeg';
 import meliArchitectureCover from '../assets/MELI-Architecture-Anomaly-detection.png';
 import vigenereCover from '../assets/vigenere.jpeg';
@@ -13,7 +16,8 @@ import restApiGolangGenCover from '../assets/rest-api-golang-gen.jpeg';
 import restfulRdsCover from '../assets/restful-rds-golang-products.jpeg';
 
 // Datos que NO cambian con el idioma (título, stack, imágenes, links).
-// `description` y `note` viven en locales/<idioma>/projects.json y se unen por `id`.
+// `description`, `note` y `bullets` viven en locales/<idioma>/projects.json y se unen por `id`.
+// El botón "Ver detalle" solo aparece en los proyectos que tienen `bullets`.
 // `typeKey` y `labelKey` apuntan a las claves types.* y links.* del JSON.
 const projectsBase = [
   // ── Desarrollo de Software ──────────────────────────
@@ -134,12 +138,55 @@ const projectsBase = [
       { labelKey: 'code', url: 'https://github.com/DiegoAll/cloudtrail-enrichment-api-golang', variant: 'secondary' },
     ],
   },
+
+  // ── Agentic AI ───────────────────────────────────────
+  // Sin `image`: la tarjeta usa el gradiente con la inicial. Para agregar portada,
+  // importa la imagen arriba y añade `image: <import>` (como en los demás).
+  // Por ahora solo Code. Cuando haya video, agrega arriba del code:
+  //   { labelKey: 'demo', url: 'https://...', variant: 'primary' },
+  {
+    id: 'tech-store-assistant',
+    title: 'Tech Store Assistant',
+    typeKey: 'personal',
+    category: 'agentic',
+    stack: ['Golang', 'OpenAI', 'Function Calling', 'MCP', 'PostgreSQL'],
+    links: [
+      { labelKey: 'code', url: 'https://github.com/DiegoAll/tech-store-assistant', variant: 'secondary' },
+    ],
+  },
+  {
+    id: 'multiagent-contact-center',
+    title: 'MultiAgent Contact Center',
+    typeKey: 'personal',
+    category: 'agentic',
+    stack: ['Python', 'LangGraph', 'LangChain', 'FastAPI', 'pgvector', 'MCP', 'Golang', 'React', 'LangSmith'],
+    links: [
+      { labelKey: 'code', url: 'https://github.com/DiegoAll/multiagent-contact-center', variant: 'secondary' },
+    ],
+  },
 ];
 
-const filterKeys = ['all', 'development', 'security'];
+const filterKeys = ['all', 'development', 'security', 'agentic'];
 
-function ProjectCard({ project }) {
+// Mismos botones que la tarjeta, pero en el formato que espera DetailModal.
+function buildModalLinks(project, t) {
+  const links = project?.links ?? [];
+  return links.map((link) => ({
+    key: link.labelKey,
+    label: t(`links.${link.labelKey}`),
+    url: link.url,
+    className:
+      link.variant === 'primary'
+        ? 'btn-demo'
+        : links.length === 1
+          ? 'btn-code btn-code-solo'
+          : 'btn-code',
+  }));
+}
+
+function ProjectCard({ project, onOpen }) {
   const { t } = useTranslation('projects');
+  const { t: td } = useTranslation('detail');
   const initial = project.title.charAt(0).toUpperCase();
 
   return (
@@ -169,6 +216,16 @@ function ProjectCard({ project }) {
             <span className="stack-chip" key={s}>{s}</span>
           ))}
         </div>
+
+        {project.bullets?.length > 0 && (
+          <button
+            type="button"
+            className="detail-trigger"
+            onClick={() => onOpen(project.id)}
+          >
+            {td('readMore')} →
+          </button>
+        )}
       </div>
 
       <div className="project-actions">
@@ -206,9 +263,24 @@ function ProjectCard({ project }) {
 
 function Projects() {
   const { t } = useTranslation('projects');
+  const { t: td } = useTranslation('detail');
+  const { visibleIds, loading: visibleLoading } = useVisibleProjects();
+  const { activeId: activeProjectId, open: openProject, close: closeProject } = useModalParam('project');
   const [activeFilter, setActiveFilter] = useState('all');
 
-  const projects = mergeById(projectsBase, t('items', { returnObjects: true }));
+  // Los links con url vacía (placeholders) no se renderizan hasta que se completen.
+  const allProjects = mergeById(projectsBase, t('items', { returnObjects: true })).map((p) => ({
+    ...p,
+    links: (p.links ?? []).filter((l) => l.url),
+  }));
+
+  // Solo se muestran los proyectos seleccionados, en el orden de la selección.
+  // visibleIds === null -> se muestran todos.
+  const projects = visibleIds
+    ? visibleIds.map((id) => allProjects.find((p) => p.id === id)).filter(Boolean)
+    : allProjects;
+
+  const activeProject = projects.find((p) => p.id === activeProjectId);
 
   const filteredProjects = activeFilter === 'all'
     ? projects
@@ -234,11 +306,27 @@ function Projects() {
         ))}
       </div>
 
-      <div className="project-grid">
-        {filteredProjects.map((p) => (
-          <ProjectCard project={p} key={p.id} />
-        ))}
-      </div>
+      {/* Mientras se consultan los settings no se pinta el grid, para no mostrar
+          un instante la selección por defecto si el admin eligió otra. */}
+      {!visibleLoading && (
+        <div className="project-grid">
+          {filteredProjects.map((p) => (
+            <ProjectCard project={p} key={p.id} onOpen={openProject} />
+          ))}
+        </div>
+      )}
+
+      <DetailModal
+        open={Boolean(activeProject?.bullets?.length)}
+        onClose={closeProject}
+        title={activeProject?.title}
+        subtitle={activeProject ? t(`types.${activeProject.typeKey}`) : undefined}
+        tags={activeProject?.stack}
+        sectionTitle={td('keyPoints')}
+        items={activeProject?.bullets}
+        note={activeProject?.confidential ? activeProject.note : undefined}
+        links={buildModalLinks(activeProject, t)}
+      />
     </section>
   );
 }

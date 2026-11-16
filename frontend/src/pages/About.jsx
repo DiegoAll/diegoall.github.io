@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { mergeById } from '../i18n/utils';
+import DetailModal from '../components/DetailModal';
+import { useModalParam } from '../hooks/useModalParam';
 
 const skills = [
   'Golang', 'Python', 'Docker', 'Kubernetes',
@@ -12,13 +14,35 @@ const skills = [
 
 // Datos que NO cambian con el idioma. Los textos (rol, periodo, detalles)
 // viven en locales/<idioma>/about.json y se unen por `id`.
+//
+// Detalle en modal (opcional, por empresa):
+//   - `tech` (aquí): etiquetas de tecnologías.
+//   - `location` (aquí, opcional): ciudad que aparece junto al periodo.
+//   - `bullets` (about.json, en cada idioma): lista de responsabilidades y logros.
+// El botón "Ver detalle" solo aparece en las empresas que tienen `bullets`.
 const experienceBase = [
-  { id: 'bold', company: 'Bold CF' },
-  { id: 'meli', company: 'Mercado Libre' },
-  { id: 'neosecure', company: 'Neosecure' },
-  { id: 'sofka', company: 'Sofka Technologies' },
-  { id: 'aligo', company: 'Aligo Defensores Informáticos' },
-  { id: 'sophos', company: 'Sophos Banking Solutions' },
+  {
+    id: 'bold',
+    company: 'Bold CF',
+    location: 'Bogotá',
+    tech: [
+      'Golang', 'Python', 'AWS Lambda', 'DynamoDB', 'API Gateway', 'ECS', 'ECR',
+      'AWS CDK', 'CloudFormation', 'Terraform', 'Azure Pipelines', 'CDK-Nag', 'Trivy',
+    ],
+  },
+  {
+    id: 'meli',
+    company: 'Mercado Libre',
+    location: 'Medellín',
+    tech: [
+      'Golang', 'Python', 'Kubernetes', 'Terraform', 'Falco', 'EKS', 'GKE', 'EC2', 'GCE',
+      'Rancher', 'Argo CD', 'Prometheus', 'Grafana', 'Datadog', 'ELK', 'Jenkins',
+    ],
+  },
+  { id: 'neosecure', company: 'Neosecure', tech: [] },
+  { id: 'sofka', company: 'Sofka Technologies', tech: [] },
+  { id: 'aligo', company: 'Aligo Defensores Informáticos', tech: [] },
+  { id: 'sophos', company: 'Sophos Banking Solutions', tech: [] },
 ];
 
 const educationBase = [
@@ -97,6 +121,8 @@ function IconGithub() {
 
 function About() {
   const { t } = useTranslation('about');
+  const { t: td } = useTranslation('detail');
+  const { activeId: activeJobId, open: openJob, close: closeJob } = useModalParam('job');
   const [showAllExperience, setShowAllExperience] = useState(false);
   const [showAllCourses, setShowAllCourses] = useState(false);
 
@@ -105,6 +131,7 @@ function About() {
   const courses = mergeById(coursesBase, t('courses', { returnObjects: true }));
   const languages = mergeById(languagesBase, t('languages', { returnObjects: true }));
 
+  const activeJob = experience.find((j) => j.id === activeJobId);
   const visibleExperience = showAllExperience ? experience : experience.slice(0, 3);
   const visibleCourses = showAllCourses ? courses : courses.slice(0, 3);
 
@@ -163,6 +190,15 @@ function About() {
                   <li key={d}>{d}</li>
                 ))}
               </ul>
+              {job.bullets?.length > 0 && (
+                <button
+                  type="button"
+                  className="detail-trigger"
+                  onClick={() => openJob(job.id)}
+                >
+                  {td('readMore')} →
+                </button>
+              )}
             </div>
           ))}
         </div>
@@ -241,6 +277,17 @@ function About() {
           ))}
         </div>
       </section>
+
+      <DetailModal
+        open={Boolean(activeJob?.bullets?.length)}
+        onClose={closeJob}
+        title={activeJob?.company}
+        subtitle={activeJob?.role}
+        meta={[activeJob?.location, activeJob?.period].filter(Boolean).join(' · ')}
+        tags={activeJob?.tech}
+        sectionTitle={td('responsibilities')}
+        items={activeJob?.bullets}
+      />
     </div>
   );
 }

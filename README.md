@@ -48,3 +48,30 @@ Tu Dockerfile usa golang:1.22-alpine como imagen base, pero go.mod dice go 1.23.
 # Insert a post
 
     docker compose exec -T db psql -U postgres -d portfolio-db < ~/insert_post.sql
+
+
+git diff --stat
+git show
+git show --stat
+
+
+
+por un lado se crea un PR
+
+Desd ela rama de feature
+
+git fetch origin
+git merge origin/main
+
+git push -u origin fix/mobile-navbar
+
+Abre el PR, con gh o desde la web:
+
+
+
+merge
+
+el normal pasarse a main y traerselo
+
+
+git switch -c feat/search-posts-api

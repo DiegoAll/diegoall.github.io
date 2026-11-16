@@ -1,22 +1,38 @@
 {
   "title": "Projects",
-  "filters": { "all": "Todos", "development": "Desarrollo", "security": "Ciberseguridad" },
+  "filters": { "all": "Todos", "development": "Desarrollo", "security": "Ciberseguridad", "agentic": "Agentic AI" },
   "types": { "community": "Comunidad", "enterprise": "Empresarial · Privado", "personal": "Personal" },
   "links": { "site": "Sitio", "code": "Code", "demo": "Demo", "article": "Artículo" },
   "items": [
     {
       "id": "thepragmatic",
-      "description": "Proyecto y comunidad de ciberseguridad donde se promueven conocimientos de seguridad informática alineados con las tendencias tecnológicas actuales y la industria."
+      "description": "Proyecto y comunidad de ciberseguridad donde se promueven conocimientos de seguridad informática alineados con las tendencias tecnológicas actuales y la industria.",
+      "bullets": [
+        "Proyecto y comunidad de ciberseguridad que difunde conocimiento de seguridad informática alineado con las tendencias tecnológicas actuales y la industria.",
+        "Plataforma web con backend en Golang y frontend en React, desplegada en Digital Ocean.",
+        "Contenido sobre ciberseguridad, ethical hacking, SecDevOps, tutoriales, pruebas de concepto y vulnerabilidades."
+      ]
     },
     {
       "id": "secure-coding-portal",
       "description": "Portal desarrollado para entrenar a los equipos de desarrollo de Bold en buenas prácticas de seguridad y diseño seguro de software.",
-      "note": "Proyecto propiedad de Bold. Algunos detalles de implementación permanecen confidenciales."
+      "note": "Proyecto propiedad de Bold. Algunos detalles de implementación permanecen confidenciales.",
+      "bullets": [
+        "Portal para entrenar a los equipos de desarrollo de Bold en buenas prácticas de seguridad y diseño seguro de software, usado para renovar la certificación PCI DSS.",
+        "Desarrollo full stack con backend en Golang y Python sobre AWS Serverless (Lambda, DynamoDB, API Gateway, ECS, ECR).",
+        "Infraestructura como código con AWS CDK (CloudFormation) y Terraform.",
+        "Pipelines en Azure Pipelines con integración de CDK-Nag y Trivy."
+      ]
     },
     {
       "id": "anomaly-detection",
       "description": "Sistema de detección de anomalías de seguridad desarrollado y mantenido en Mercado Libre, orientado a observabilidad y respuesta temprana ante comportamientos inusuales en la infraestructura.",
-      "note": "Proyecto propiedad de Mercado Libre. Código fuente confidencial, no disponible públicamente."
+      "note": "Proyecto propiedad de Mercado Libre. Código fuente confidencial, no disponible públicamente.",
+      "bullets": [
+        "Microservicios y APIs escalables, en Golang y Python, para detectar anomalías en sistemas distribuidos sobre clusters de Kubernetes.",
+        "Infraestructura como código en Terraform.",
+        "Respuesta temprana ante tráfico malicioso con AWS WAF y AWS Shield; el caso se documentó en un artículo del blog de arquitectura de AWS."
+      ]
     },
     {
       "id": "restful-rds-golang-products",
@@ -45,6 +61,27 @@
     {
       "id": "cloudtrail-enrichment",
       "description": "API REST de monitoreo de seguridad que enriquece con geolocalización de IP los logs de AWS CloudTrail."
+    },
+    {
+      "id": "tech-store-assistant",
+      "description": "Agente conversacional de IA para una tienda de tecnología que consulta pedidos en tiempo real: el LLM detecta la intención del cliente, llama a una tool y responde con el estado real del pedido.",
+      "bullets": [
+        "Agente de consulta y seguimiento de pedidos: el cliente pregunta \"¿dónde va mi pedido?\" y el LLM detecta la intención y ejecuta la tool get_order_status contra la base de datos real, en lugar de responder con documentos estáticos.",
+        "Flujo de tool calling con OpenAI Function Calling: el backend declara las tools, el modelo decide cuál invocar, el backend la ejecuta y el modelo redacta la respuesta final.",
+        "Backend en Golang con tools expuestas vía MCP y datos en PostgreSQL.",
+        "Diseñado para crecer hacia stock y reservas, post-venta activa (RAG + tickets), ventas cruzadas y búsqueda semántica de productos."
+      ]
+    },
+    {
+      "id": "multiagent-contact-center",
+      "description": "Laboratorio de atención al cliente multiagente: un supervisor enruta cada solicitud a agentes especialistas con RAG, tools MCP sobre un CRM simulado, guardrails y observabilidad.",
+      "bullets": [
+        "Grafo multiagente con LangGraph: guardrails, supervisor, especialistas (conocimiento, transacciones, escalamiento a humano) y control de calidad final.",
+        "RAG con LangChain y pgvector; tools expuestas por un servidor MCP en Go sobre un CRM simulado (datos ficticios).",
+        "API REST en Go (chi) con capas controller → service → repository, y un servicio de agentes en Python con FastAPI.",
+        "Chat en React + TypeScript con panel de trazas que muestra agentes, tools y fuentes usadas.",
+        "Observabilidad con LangSmith, evaluación con dataset dorado y análisis de riesgos basado en OWASP LLM Top 10."
+      ]
     }
   ]
 }

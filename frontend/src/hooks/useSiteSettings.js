@@ -2,31 +2,50 @@ import { useEffect, useState } from 'react';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost';
 
-// Se consulta una sola vez por carga de página (Navbar y Highlights.jsx
-// comparten esta llamada gracias al cache en módulo — no dos fetches).
+// Se consulta una sola vez por carga de página (Navbar, Highlights y Projects
+// comparten esta llamada gracias al cache en módulo — no varios fetches, ni
+// siquiera cuando dos componentes se montan al mismo tiempo).
 let cache = null;
+let inflight = null;
+
+function loadSettings() {
+  if (!inflight) {
+    inflight = fetch(`${API_URL}/v1/settings`)
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then((json) => {
+        cache = json.data;
+      })
+      .catch(() => {
+        // Si el backend está caído, se asume "encendido" — igual que hace
+        // el propio backend cuando falta la fila en site_settings. Así un
+        // problema de red nunca te oculta la sección por accidente.
+        // (Sin `visible_projects` -> useVisibleProjects usa su selección por defecto.)
+        cache = { highlights_enabled: true };
+      });
+  }
+  return inflight;
+}
+
+// El panel de admin llama a esto después de guardar, para que /projects (que
+// lee este cache) refleje el cambio sin tener que recargar la página.
+export function updateSiteSettingsCache(patch) {
+  cache = { ...(cache || {}), ...patch };
+}
 
 export function useSiteSettings() {
   const [settings, setSettings] = useState(cache);
   const [loading, setLoading] = useState(!cache);
 
   useEffect(() => {
-    if (cache) return;
+    if (cache) return undefined;
 
-    fetch(`${API_URL}/v1/settings`)
-      .then((res) => (res.ok ? res.json() : Promise.reject()))
-      .then((json) => {
-        cache = json.data;
-        setSettings(json.data);
-      })
-      .catch(() => {
-        // Si el backend está caído, se asume "encendido" — igual que hace
-        // el propio backend cuando falta la fila en site_settings. Así un
-        // problema de red nunca te oculta la sección por accidente.
-        cache = { highlights_enabled: true };
-        setSettings(cache);
-      })
-      .finally(() => setLoading(false));
+    let cancelled = false;
+    loadSettings().then(() => {
+      if (cancelled) return;
+      setSettings(cache);
+      setLoading(false);
+    });
+    return () => { cancelled = true; };
   }, []);
 
   return { settings, loading };

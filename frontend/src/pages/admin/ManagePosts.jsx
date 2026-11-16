@@ -3,6 +3,7 @@ import { marked } from 'marked';
 import { useAuth } from '../../context/AuthContext';
 import { useAdminApi } from '../../hooks/useAdminApi';
 import { useTheme } from '../../context/ThemeContext';
+import VisibleProjectsCard from './VisibleProjectsCard';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost';
 
@@ -255,7 +256,12 @@ function ManagePosts() {
         </button>
       </div>
 
-      {activeTab === 'settings' && <SiteSettingsCard />}
+      {activeTab === 'settings' && (
+        <>
+          <SiteSettingsCard />
+          <VisibleProjectsCard />
+        </>
+      )}
 
       {activeTab === 'posts' && (
         <>

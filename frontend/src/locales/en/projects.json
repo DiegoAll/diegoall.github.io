@@ -1,22 +1,38 @@
 {
   "title": "Projects",
-  "filters": { "all": "All", "development": "Development", "security": "Cybersecurity" },
+  "filters": { "all": "All", "development": "Development", "security": "Cybersecurity", "agentic": "Agentic AI" },
   "types": { "community": "Community", "enterprise": "Enterprise · Private", "personal": "Personal" },
   "links": { "site": "Site", "code": "Code", "demo": "Demo", "article": "Article" },
   "items": [
     {
       "id": "thepragmatic",
-      "description": "Cybersecurity project and community that promotes information security knowledge aligned with current technology trends and the industry."
+      "description": "Cybersecurity project and community that promotes information security knowledge aligned with current technology trends and the industry.",
+      "bullets": [
+        "Cybersecurity project and community that shares information-security knowledge aligned with current technology trends and the industry.",
+        "Web platform with a Golang backend and a React frontend, deployed on Digital Ocean.",
+        "Content on cybersecurity, ethical hacking, SecDevOps, tutorials, proofs of concept and vulnerabilities."
+      ]
     },
     {
       "id": "secure-coding-portal",
       "description": "Portal built to train Bold's development teams in security best practices and secure software design.",
-      "note": "Project owned by Bold. Some implementation details remain confidential."
+      "note": "Project owned by Bold. Some implementation details remain confidential.",
+      "bullets": [
+        "Portal that trains Bold's development teams in secure coding practices and secure software design, used to renew the PCI DSS certification.",
+        "Full-stack development with a Golang and Python backend on AWS Serverless (Lambda, DynamoDB, API Gateway, ECS, ECR).",
+        "Infrastructure as code with AWS CDK (CloudFormation) and Terraform.",
+        "Azure Pipelines with CDK-Nag and Trivy integration."
+      ]
     },
     {
       "id": "anomaly-detection",
       "description": "Security anomaly detection system built and maintained at Mercado Libre, focused on observability and early response to unusual behavior in the infrastructure.",
-      "note": "Project owned by Mercado Libre. Source code is confidential and not publicly available."
+      "note": "Project owned by Mercado Libre. Source code is confidential and not publicly available.",
+      "bullets": [
+        "Scalable microservices and APIs, in Golang and Python, that detect anomalies in distributed systems running on Kubernetes clusters.",
+        "Infrastructure as code in Terraform.",
+        "Early response to malicious traffic with AWS WAF and AWS Shield; the case was documented in an AWS architecture blog article."
+      ]
     },
     {
       "id": "restful-rds-golang-products",
@@ -45,6 +61,27 @@
     {
       "id": "cloudtrail-enrichment",
       "description": "Security monitoring REST API that enriches AWS CloudTrail logs with IP geolocation."
+    },
+    {
+      "id": "tech-store-assistant",
+      "description": "Conversational AI agent for a tech store that tracks orders in real time: the LLM detects the customer's intent, calls a tool and answers with the actual order status.",
+      "bullets": [
+        "Order tracking agent: the customer asks \"where is my order?\" and the LLM detects the intent and runs the get_order_status tool against the real database instead of answering from static documents.",
+        "Tool-calling flow with OpenAI Function Calling: the backend declares the tools, the model decides which one to call, the backend runs it and the model writes the final answer.",
+        "Golang backend with tools served over MCP and data in PostgreSQL.",
+        "Designed to grow into stock and reservations, active post-sales support (RAG + tickets), cross-selling and semantic product search."
+      ]
+    },
+    {
+      "id": "multiagent-contact-center",
+      "description": "Multi-agent customer support lab: a supervisor routes each request to specialist agents with RAG, MCP tools over a simulated CRM, guardrails and observability.",
+      "bullets": [
+        "Multi-agent graph with LangGraph: guardrails, supervisor, specialists (knowledge, transactions, human handoff) and a final quality check.",
+        "RAG with LangChain and pgvector; tools exposed through an MCP server in Go over a simulated CRM (fictional data).",
+        "Go REST API (chi) with controller → service → repository layers, plus a Python FastAPI agent service.",
+        "React + TypeScript chat with a trace panel showing agents, tools and sources used.",
+        "Observability with LangSmith, evaluation with a golden dataset and risk analysis based on the OWASP LLM Top 10."
+      ]
     }
   ]
 }

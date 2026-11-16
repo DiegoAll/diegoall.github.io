@@ -22,6 +22,11 @@
         "Golang Backend Developer & Python Scripting (CDK - CloudFormation)",
         "Application Security - Secure Coding",
         "Infrastructure as Code (IaC) on AWS"
+      ],
+      "bullets": [
+        "Golang & Python Backend Developer (AWS Serverless – AWS Lambda – DynamoDB – API Gateway – ECS – ECR): design, full-stack development and deployment of the Secure Code Training Portal to renew the PCI DSS certification.",
+        "Infrastructure as Code (IaC): design and deployment of infrastructure using AWS CDK (CloudFormation) and Terraform.",
+        "DevOps: implementation, deployment and maintenance of Azure Pipelines with CDK-Nag and Trivy integration."
       ]
     },
     {
@@ -33,6 +38,12 @@
         "Application Security & S-SDLC (OWASP, AWS WAF, AWS Shield)",
         "Runtime & Kubernetes Security (EKS, GKE, EC2, GCE, Docker, Rancher)",
         "Observability Security (Amazon Athena, BigQuery, Elastic Search, GuardDuty, CrowdStrike, Datadog)"
+      ],
+      "bullets": [
+        "Golang & Python Backend Developer: design, development and deployment of scalable microservices and APIs for anomaly detection in distributed systems running on Kubernetes clusters, with infrastructure as code in Terraform.",
+        "Container & Kubernetes Security: implementation of security controls with Falco Runtime Security to mitigate risks in clusters (EKS, GKE) and instances (EC2 and GCE), managed with Rancher and Argo CD.",
+        "Observability: monitoring of internal services using technologies such as Prometheus, Grafana, Datadog and ELK.",
+        "DevOps: implementation and management of secure pipelines in Jenkins."
       ]
     },
     {

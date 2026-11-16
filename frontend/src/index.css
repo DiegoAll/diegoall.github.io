@@ -1820,3 +1820,307 @@ a {
   color: var(--text-muted);
   min-width: 46px;
 }
+
+/* ── Modal de detalle (empresas y proyectos) ─────────────────────────── */
+/* Antes vivía en components/DetailModal.css; se unificó acá. */
+.detail-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.55);
+  animation: detail-fade 0.18s ease;
+}
+
+.detail-panel {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  max-height: 85vh;
+  max-height: 85dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  padding: 28px 28px 24px;
+  animation: detail-pop 0.2s ease;
+}
+
+.detail-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.detail-close:hover {
+  background: var(--bg-alt);
+}
+
+.detail-title {
+  margin: 0 40px 6px 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.detail-subtitle {
+  margin: 0 0 4px;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.detail-meta {
+  margin: 0 0 4px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.detail-section {
+  margin: 22px 0 10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.detail-list {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.detail-list li::marker {
+  color: var(--accent);
+}
+
+.detail-note {
+  margin: 20px 0 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.detail-links {
+  display: flex;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+/* Botón de texto "Ver detalle →" que abre el modal desde las tarjetas. */
+.detail-trigger {
+  margin-top: 12px;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.detail-trigger:hover {
+  text-decoration: underline;
+}
+
+@keyframes detail-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes detail-pop {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes detail-sheet {
+  from { transform: translateY(40px); opacity: 0.6; }
+  to { transform: none; opacity: 1; }
+}
+
+/* Móvil: hoja que sube desde abajo, a todo el ancho. */
+@media (max-width: 640px) {
+  .detail-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .detail-panel {
+    max-width: none;
+    max-height: 88vh;
+    max-height: 88dvh;
+    border-radius: 16px 16px 0 0;
+    border-bottom: none;
+    padding: 24px 20px calc(24px + env(safe-area-inset-bottom, 0px));
+    animation: detail-sheet 0.22s ease;
+  }
+
+  .detail-links {
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .detail-overlay,
+  .detail-panel {
+    animation: none;
+  }
+}
+
+/* ── Admin: selector de proyectos visibles ───────────────────────────── */
+.admin-btn-primary:disabled,
+.admin-btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.vp-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.vp-col {
+  margin: 0;
+  min-width: 0;
+  padding: 12px 14px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.vp-col-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.vp-count {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--border);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.vp-count.full {
+  background: var(--accent);
+  color: white;
+}
+
+.vp-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 8px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.vp-option:hover {
+  background: var(--bg-alt);
+}
+
+.vp-option.checked {
+  background: color-mix(in srgb, var(--accent) 8%, var(--bg));
+}
+
+.vp-option.disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.vp-option input {
+  accent-color: var(--accent);
+  flex: none;
+}
+
+.vp-option-title {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.vp-order {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vp-hint {
+  margin: 14px 0 0;
+  font-size: 0.82rem;
+  color: var(--accent);
+}
+
+.vp-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.vp-msg {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.vp-msg.ok {
+  color: #16a34a;
+}
+
+.vp-msg.error {
+  color: var(--accent);
+}
+
+@media (max-width: 640px) {
+  .vp-columns {
+    grid-template-columns: 1fr;
+  }
+}
