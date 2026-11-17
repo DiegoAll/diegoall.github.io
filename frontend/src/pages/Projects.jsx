@@ -14,6 +14,8 @@ import goVulnerableApiCover from '../assets/go-vulnerable-api.jpeg';
 import cveLooneyTunablesCover from '../assets/CVE-2023-4911_Looney_Tunables_Detection.jpeg';
 import restApiGolangGenCover from '../assets/rest-api-golang-gen.jpeg';
 import restfulRdsCover from '../assets/restful-rds-golang-products.jpeg';
+import techStoreAssistantCover from '../assets/tech-store-assistant.jpeg';
+import multiagentContactCenterCover from '../assets/Multiagent-BPO-CRM.jpeg';
 
 // Datos que NO cambian con el idioma (título, stack, imágenes, links).
 // `description`, `note` y `bullets` viven en locales/<idioma>/projects.json y se unen por `id`.
@@ -140,8 +142,6 @@ const projectsBase = [
   },
 
   // ── Agentic AI ───────────────────────────────────────
-  // Sin `image`: la tarjeta usa el gradiente con la inicial. Para agregar portada,
-  // importa la imagen arriba y añade `image: <import>` (como en los demás).
   // Por ahora solo Code. Cuando haya video, agrega arriba del code:
   //   { labelKey: 'demo', url: 'https://...', variant: 'primary' },
   {
@@ -150,6 +150,7 @@ const projectsBase = [
     typeKey: 'personal',
     category: 'agentic',
     stack: ['Golang', 'OpenAI', 'Function Calling', 'MCP', 'PostgreSQL'],
+    image: techStoreAssistantCover,
     links: [
       { labelKey: 'code', url: 'https://github.com/DiegoAll/tech-store-assistant', variant: 'secondary' },
     ],
@@ -160,6 +161,7 @@ const projectsBase = [
     typeKey: 'personal',
     category: 'agentic',
     stack: ['Python', 'LangGraph', 'LangChain', 'FastAPI', 'pgvector', 'MCP', 'Golang', 'React', 'LangSmith'],
+    image: multiagentContactCenterCover,
     links: [
       { labelKey: 'code', url: 'https://github.com/DiegoAll/multiagent-contact-center', variant: 'secondary' },
     ],
