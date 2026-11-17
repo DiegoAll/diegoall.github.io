@@ -10,7 +10,8 @@
       "bullets": [
         "Proyecto y comunidad de ciberseguridad que difunde conocimiento de seguridad informática alineado con las tendencias tecnológicas actuales y la industria.",
         "Plataforma web con backend en Golang y frontend en React, desplegada en Digital Ocean.",
-        "Contenido sobre ciberseguridad, ethical hacking, SecDevOps, tutoriales, pruebas de concepto y vulnerabilidades."
+        "Incluye un agente de IA que apoya a los usuarios en temas de servicios y capacitaciones.",
+        "Contenido sobre ciberseguridad, ethical hacking, DevSecOps, tutoriales, pruebas de concepto y vulnerabilidades."
       ]
     },
     {
@@ -20,8 +21,7 @@
       "bullets": [
         "Portal para entrenar a los equipos de desarrollo de Bold en buenas prácticas de seguridad y diseño seguro de software, usado para renovar la certificación PCI DSS.",
         "Desarrollo full stack con backend en Golang y Python sobre AWS Serverless (Lambda, DynamoDB, API Gateway, ECS, ECR).",
-        "Infraestructura como código con AWS CDK (CloudFormation) y Terraform.",
-        "Pipelines en Azure Pipelines con integración de CDK-Nag y Trivy."
+        "Creación de guías y prácticas de secure coding para el stack tecnológico serverless de la compañía (Python, CDK, AWS)."
       ]
     },
     {
@@ -29,8 +29,8 @@
       "description": "Sistema de detección de anomalías de seguridad desarrollado y mantenido en Mercado Libre, orientado a observabilidad y respuesta temprana ante comportamientos inusuales en la infraestructura.",
       "note": "Proyecto propiedad de Mercado Libre. Código fuente confidencial, no disponible públicamente.",
       "bullets": [
-        "Microservicios y APIs escalables, en Golang y Python, para detectar anomalías en sistemas distribuidos sobre clusters de Kubernetes.",
-        "Infraestructura como código en Terraform.",
+        "Diseño, desarrollo y refactorización de microservicios y APIs escalables en Golang y Python para enriquecer los sistemas de detección de anomalías de la solución (un sistema distribuido).",
+        "Diseño de mejoras de arquitectura de la solución y definición de umbrales de monitoreo y observabilidad para algunas de sus APIs.",
         "Respuesta temprana ante tráfico malicioso con AWS WAF y AWS Shield; el caso se documentó en un artículo del blog de arquitectura de AWS."
       ]
     },
@@ -44,15 +44,30 @@
     },
     {
       "id": "k8s-runtime-sec",
-      "description": "CLI para simular comportamientos maliciosos en clústeres de Kubernetes. Incluye dos escenarios de incidentes de seguridad relacionados con escalación de privilegios y ejecución de malware."
+      "description": "CLI para simular comportamientos maliciosos en clústeres de Kubernetes. Incluye dos escenarios de incidentes de seguridad relacionados con escalación de privilegios y ejecución de malware.",
+      "bullets": [
+        "CLI en Golang construida con Cobra (github.com/spf13/cobra) para ejecutar de forma automática vectores de comportamiento malicioso y explotación de vulnerabilidades.",
+        "Despliegue de un servidor de comando y control (C&C) que recibe la información de post-explotación.",
+        "Dos escenarios de red teaming (Malware Infection y Hunting) que demuestran las capacidades de detección de Falco Runtime Security."
+      ]
     },
     {
       "id": "go-vulnerable-api",
-      "description": "REST API deliberadamente vulnerable construida en Go, que demuestra vulnerabilidades comunes de seguridad incluyendo SQL Injection (SQLi) e Insecure Direct Object Reference (IDOR)."
+      "description": "REST API deliberadamente vulnerable construida en Go, que demuestra vulnerabilidades comunes de seguridad incluyendo SQL Injection (SQLi) e Insecure Direct Object Reference (IDOR).",
+      "bullets": [
+        "Investigación e implementación de una REST API deliberadamente vulnerable en Golang, con vulnerabilidades como IDOR, SQL Injection, JWT Misconfiguration, Broken Authentication y Path Traversal, entre otras.",
+        "Identificación y documentación de los payloads maliciosos que permiten explotar la aplicación."
+      ]
     },
     {
       "id": "cve-2023-4911",
-      "description": "Demo de detección en tiempo real de la vulnerabilidad CVE-2023-4911 (Looney Tunables) utilizando reglas de Falco runtime security."
+      "description": "Demo de detección en tiempo real de la vulnerabilidad CVE-2023-4911 (Looney Tunables) utilizando reglas de Falco runtime security.",
+      "bullets": [
+        "Demo de un escenario de detección con Falco Runtime Security de la vulnerabilidad CVE-2023-4911 (Looney Tunables), usando el exploit de blasty y Meterpreter para escalar privilegios en un pod vulnerable dentro de un clúster de Kubernetes.",
+        "Falcosidekick y Falcosidekick UI para centralizar los eventos de seguridad generados por actividades maliciosas.",
+        "Reglas personalizadas de Falco para detectar otros comportamientos maliciosos, como escalación de privilegios, ejecución de malware, acceso a credenciales y exfiltración de datos, entre otros.",
+        "Flujo de gestión de incidentes con un webhook de Slack y una automatización en Python que filtra los eventos según su criticidad y realiza el escalamiento."
+      ]
     },
     {
       "id": "vigenere-decipher",
